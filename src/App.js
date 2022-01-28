@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useReducer } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 import Landing from './components/Landing';
@@ -8,10 +8,31 @@ import Woods from './routes/Woods';
 import Spell from './components/Spell';
 import Inventory from './components/Inventory'
 
+// function reducer(spellState, action) {
+//   switch (action.type) {
+//     case 'purchase':
+//       return { spell: state.owned = true }
+//     case 'use':
+//       return { spell: state.owned = false }
+//   }
+// }
+
+
 function App() {
+  //const [spellState, dispatch] = useReducer(reducer, {spellState.owned: false})
   const [nameInput, setNameInput] = useState([]);
   const [playerInv, setplayerInv] = useState([]);
   const [selectedSpell, setSelectedSpell] = useState([]);
+  const [currentMonster, generateMonster] = useState(null);
+
+  const monster = {id: 0,
+    name: "minotaur",
+  hp: 40,
+  damage: 30}
+
+  // function purchaseSpell() {
+  //   dispatch({ type: 'purchase' })
+  // }
 
   const allSpells = []
   for (let spell of spells){
@@ -57,7 +78,13 @@ function App() {
     allSpells = {allSpells}
     setSelectedSpell = {setSelectedSpell}
     selectedSpell = {selectedSpell} />} />
-    <Route path="woods" element={<Woods />} />
+    <Route path="woods" element={<Woods
+    monster = {monster}
+    generateMonster = {generateMonster}
+    currentMonster = {currentMonster}
+    allSpells = {allSpells}
+    setSelectedSpell = {setSelectedSpell}
+    selectedSpell = {selectedSpell} />} />
     </Routes>
     </BrowserRouter>
   );
