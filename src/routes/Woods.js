@@ -3,6 +3,7 @@ import React from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import Monster from '../components/Monster'
 import Inventory from '../components/Inventory'
+import ActionLog from '../components/ActionLog'
 import Landing from '../components/Landing';
 
 const Woods = (props) => {
@@ -28,27 +29,39 @@ const Woods = (props) => {
         props.generateMonster(monster);
     }}>Keep Going</button>
 
-    const attackButton = <button className = 'attack-button'
-    onClick={(e) => {
-        console.log(props.selectedSpell)
-    }}>Attack</button>
-
     const ifMonster = (monster) => {
         if (monster) {
             return (
                 <div><Monster
-    key={monster.id}
-    name={monster.name}
-    damage={monster.damage}
-    hp={monster.hp} />
-    <button className = 'attack-button'
-    onClick={(e) => {
-        console.log(props.selectedSpell)
-    }}>Attack</button></div>
+                    key={monster.id}
+                    name={monster.name}
+                    damage={monster.damage}
+                    hp={monster.hp} />
+                    <button className = 'attack-button'
+                    onClick={(e) => {
+                        console.log(props.selectedSpell)
+                        props.setActionLog(<ActionLog
+                            monster = {monster}
+                            setSelectedSpell = {props.selectedSpell} />)
+                    }}>Attack</button></div>
             );
         } else {
             return (<div></div>)
         }
+    };
+
+    const ifActionLog = (actionLog) => {
+        if (actionLog) {
+            return (<div>{props.actionLogDisplay}</div>)
+        }
+    }
+
+    const createActionLog = (monsterHP, spellDamage) => {
+        return (<ActionLog
+            monster = {props.currentMonster}
+            selectedSpell = {props.selectedSpell}
+            monsterHP = {props.monsterHP}
+            setMonsterHP = {props.setMonsterHP} />)
     }
 
     return (<div>
@@ -57,6 +70,7 @@ const Woods = (props) => {
         setSelectedSpell = {props.setSelectedSpell}
         selectedSpell = {props.selectedSpell} />
         {ifMonster(props.currentMonster)}
+        {ifActionLog(props.actionLogDisplay)}
         {goButton}
         {marketButton}
         {landingButton}

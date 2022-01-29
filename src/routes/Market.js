@@ -11,6 +11,8 @@ const Market = (props) => {
     const buyButton = <button className = 'buy-button'
     onClick={(e) => {
         console.log(props.selectedSpell)
+        props.buySpell(props.selectedSpell.id)
+        props.generatePlayerInv()
     }}>Purchase</button>
 
     const woodsButton = <button className = 'woods-button'
@@ -18,10 +20,21 @@ const Market = (props) => {
         navigate("/Woods");
     }}>Go Into The Woods</button>
 
-    return (<div><p>This is the Market page. Your name is {props.playerName}</p>
-        <Inventory allSpells = {props.allSpells}
+    const shopInventory = () => {
+        return (<Inventory allSpells = {props.allSpells}
         setSelectedSpell = {props.setSelectedSpell}
-        selectedSpell = {props.selectedSpell} />
+        selectedSpell = {props.selectedSpell} />)
+    }
+
+    const playerInventory = () => {
+        return (<Inventory allSpells = {props.playerInv}
+            setSelectedSpell = {props.setSelectedSpell}
+            selectedSpell = {props.selectedSpell} />)
+    }
+
+    return (<div><p>This is the Market page. Your name is {props.playerName}</p>
+        {shopInventory()}
+        {playerInventory()}
         {buyButton} <br />
         {woodsButton}
         </div>)
