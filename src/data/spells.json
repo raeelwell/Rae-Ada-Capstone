@@ -1,7 +1,7 @@
 [{"id": 1,
     "name": "fireball",
     "damage": 40,
-"owned": true},
+"owned": false},
 {"id": 2,
     "name": "lightning",
     "damage": 30,

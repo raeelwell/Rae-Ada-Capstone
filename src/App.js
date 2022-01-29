@@ -20,10 +20,10 @@ for (let spell of spells){
 
 
 function App() {
-  const [nameInput, setNameInput] = useState([]);
+  const [nameInput, setNameInput] = useState('');
   const [spells, setSpells] = useState(allSpells);
   const [playerInv, setplayerInv] = useState([]);
-  const [selectedSpell, setSelectedSpell] = useState([]);
+  const [selectedSpell, setSelectedSpell] = useState(allSpells[1]);
   const [currentMonster, generateMonster] = useState(null);
   const [monsterHP, setMonsterHP] = useState(null);
   const [actionLogDisplay, setActionLog] = useState([])
@@ -33,14 +33,13 @@ function App() {
   hp: 40,
   damage: 30}
 
-  const buySpell = id => {
+  const buySpell = (id) => {
+    console.log(id)
     setSpells(spells.map(spell => {
       if (spell.id === id) {
-        return {
-          ...spell,
-          owned: true
-        };
+        spell.owned = true
       }
+      console.log(spell)
       return spell;
     }));
   };

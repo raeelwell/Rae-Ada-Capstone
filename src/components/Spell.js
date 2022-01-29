@@ -15,11 +15,9 @@ const Spell = (props) => {
         );
     }
 
-    //i need setselectedspell to return a spell object, not a string spell option
+    //i need setselectedspell to return a spell object? not a string spell option
     //can i display this option in a different way without breaking my code
     
-    return (<option>{props.name}, damage: {props.damage}</option>)
-}
-
-//return <option>{props.name}, damage: {props.damage}</option>
+    return (<option value = {props.id}>{props.name}, damage: {props.damage}</option>)
+};
 export default Spell;

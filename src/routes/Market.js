@@ -1,6 +1,5 @@
 import '../App.css';
 import { useParams, useNavigate } from "react-router-dom";
-import app from '../App'
 import React from 'react';
 import Inventory from '../components/Inventory'
 import spells from '../data/spells'
@@ -12,6 +11,7 @@ const Market = (props) => {
     onClick={(e) => {
         console.log(props.selectedSpell)
         props.buySpell(props.selectedSpell.id)
+        //use UseEffect, when allSpells changes calls generatePlayerInv in useEffect
         props.generatePlayerInv()
     }}>Purchase</button>
 
