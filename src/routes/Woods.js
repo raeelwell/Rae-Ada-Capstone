@@ -1,5 +1,5 @@
 import '../App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import Monster from '../components/Monster'
 import Inventory from '../components/Inventory'
@@ -27,7 +27,16 @@ const Woods = (props) => {
     const goButton = <button className = 'go-button'
     onClick={() => {
         props.generateMonster(monster);
+        //props.setMonsterHP(monster.hp);
     }}>Keep Going</button>
+
+    const generateAction = (monster, selectedSpell) => {
+        if (monster.hp - selectedSpell.damage > 0) {
+            monster.hp = monster.hp - selectedSpell.damage
+        } else {
+            monster.hp = 0
+        };
+    };
 
     const ifMonster = (monster) => {
         if (monster) {
@@ -39,10 +48,12 @@ const Woods = (props) => {
                     hp={monster.hp} />
                     <button className = 'attack-button'
                     onClick={(e) => {
-                        console.log(props.selectedSpell)
+                        console.log(props.currentMonster)
+                        generateAction(props.currentMonster, props.selectedSpell)
                         props.setActionLog(<ActionLog
-                            monster = {monster}
-                            setSelectedSpell = {props.selectedSpell} />)
+                            currentMonster = {props.currentMonster}
+                            selectedSpell = {props.selectedSpell} 
+                            setMonsterHP = {props.setMonsterHP} />)
                     }}>Attack</button></div>
             );
         } else {
@@ -66,7 +77,7 @@ const Woods = (props) => {
 
     return (<div>
         <h1>This is the Woods Page</h1>
-        <Inventory allSpells = {props.allSpells}
+        <Inventory allSpells = {props.playerInv}
         setSelectedSpell = {props.setSelectedSpell}
         selectedSpell = {props.selectedSpell} />
         {ifMonster(props.currentMonster)}

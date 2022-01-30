@@ -25,7 +25,7 @@ function App() {
   const [playerInv, setplayerInv] = useState([]);
   const [selectedSpell, setSelectedSpell] = useState(allSpells[1]);
   const [currentMonster, generateMonster] = useState(null);
-  const [monsterHP, setMonsterHP] = useState(null);
+  //const [monsterHP, setMonsterHP] = useState(null);
   const [actionLogDisplay, setActionLog] = useState([])
 
   const monster = {id: 0,
@@ -76,10 +76,11 @@ function App() {
     allSpells = {allSpells}
     setSelectedSpell = {setSelectedSpell}
     selectedSpell = {selectedSpell}
-    monsterHP = {monsterHP}
-    setMonsterHP = {setMonsterHP}
+    // monsterHP = {monsterHP}
+    // setMonsterHP = {setMonsterHP}
     actionLogDisplay = {actionLogDisplay}
-    setActionLog = {setActionLog} />} />
+    setActionLog = {setActionLog}
+    playerInv = {playerInv} />} />
     </Routes>
     </BrowserRouter>
   );

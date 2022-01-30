@@ -2,16 +2,15 @@ import React from 'react';
 
 const ActionLog = (props) => {
 
-    const generateAction = (monster, selectedSpell) => {
-        if (selectedSpell.damage - monster.hp > 0) {
-            props.setMonsterHP(selectedSpell.damage - monster.hp > 0)
-            console.log("inside action log")
+    const monsterKilled = () => {
+        if (props.currentMonster.hp === 0) {
+            return (<p>Congratulations, you killed the monster!</p>)
         }
-
     }
     return (
         <div><p>Action Generated</p>
-        {generateAction(props.currentMonster, props.selectedSpell)}</div>
+        <p>Monster HP is now {props.currentMonster.hp}</p>
+        {monsterKilled()}</div>
     )
 }
 
