@@ -1,5 +1,6 @@
 import React from 'react';
 import Spell from './Spell';
+import SpellDisplay from './SpellDisplay';
 
 const Inventory = (props) => {
     const displayAllSpells = props.allSpells.map((spell) => {
@@ -23,13 +24,20 @@ const Inventory = (props) => {
         } return null
         };
 
+    //doesn't work yet
+    const ifSpellSelected = (spell) => {
+        if (spell) {
+            return <SpellDisplay spell = {props.selectedSpell} />
+        }
+    }
+
     return (<select className="spellList"
     size="5" 
     onClick={(e) => {
-        console.log("click!");
         props.setSelectedSpell(lookUpSpell(e.target.value));
         console.log(lookUpSpell(e.target.value));
-    }} >{displayAllSpells}</select>)
+    }} >{displayAllSpells}</select>
+    )
 };
 
 export default Inventory;

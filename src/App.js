@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 import Landing from './components/Landing';
@@ -14,17 +14,18 @@ for (let spell of spells){
     id: spell.id,
     name: spell.name,
     damage: spell.damage,
+    cost: spell.cost,
     owned: spell.owned
   });
 };
-
 
 function App() {
   const [nameInput, setNameInput] = useState('');
   const [spells, setSpells] = useState(allSpells);
   const [playerInv, setplayerInv] = useState([]);
-  const [selectedSpell, setSelectedSpell] = useState(allSpells[1]);
+  const [selectedSpell, setSelectedSpell] = useState(allSpells[0]);
   const [currentMonster, generateMonster] = useState(null);
+  const [playerState, setPlayerState] = useState(null);
   //const [monsterHP, setMonsterHP] = useState(null);
   const [actionLogDisplay, setActionLog] = useState([])
 
@@ -33,13 +34,17 @@ function App() {
   hp: 40,
   damage: 30}
 
+  useEffect(() => setPlayerState({id: 0,
+    name: {nameInput},
+  hp: 50,
+  spells: {playerInv},
+  gold: 50}), [nameInput, playerInv])
+
   const buySpell = (id) => {
-    console.log(id)
     setSpells(spells.map(spell => {
       if (spell.id === id) {
         spell.owned = true
       }
-      console.log(spell)
       return spell;
     }));
   };
@@ -62,6 +67,7 @@ function App() {
     nameInput = {nameInput}
     setNameInput = {setNameInput} />} />
     <Route path="market" element={<Market
+    player = {playerState}
     playerName = {nameInput}
     allSpells = {allSpells}
     playerInv = {playerInv}
@@ -76,6 +82,9 @@ function App() {
     allSpells = {allSpells}
     setSelectedSpell = {setSelectedSpell}
     selectedSpell = {selectedSpell}
+    player = {playerState}
+    playerState = {playerState}
+    setPlayerState = {setPlayerState}
     // monsterHP = {monsterHP}
     // setMonsterHP = {setMonsterHP}
     actionLogDisplay = {actionLogDisplay}

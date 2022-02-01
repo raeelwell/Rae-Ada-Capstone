@@ -2,14 +2,15 @@ import '../App.css';
 import { useParams, useNavigate } from "react-router-dom";
 import React from 'react';
 import Inventory from '../components/Inventory'
+import Stats from '../components/Stats'
 import spells from '../data/spells'
+import SpellDisplay from '../components/SpellDisplay';
 
 const Market = (props) => {
     let navigate = useNavigate();
     
     const buyButton = <button className = 'buy-button'
     onClick={(e) => {
-        console.log(props.selectedSpell)
         props.buySpell(props.selectedSpell.id)
         //use UseEffect, when allSpells changes calls generatePlayerInv in useEffect
         props.generatePlayerInv()
@@ -32,9 +33,18 @@ const Market = (props) => {
             selectedSpell = {props.selectedSpell} />)
     }
 
-    return (<div><p>This is the Market page. Your name is {props.playerName}</p>
+    const ifSpellSelected = (spell) => {
+        if (spell) {
+            return <SpellDisplay spell = {props.selectedSpell} />
+        }
+    }
+
+    return (<div><p>This is the Market page.</p>
+        <Stats
+        player = {props.player} />
         {shopInventory()}
-        {playerInventory()}
+        {playerInventory()} <br />
+        {ifSpellSelected(props.selectedSpell)}
         {buyButton} <br />
         {woodsButton}
         </div>)
