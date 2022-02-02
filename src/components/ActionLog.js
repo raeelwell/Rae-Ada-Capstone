@@ -4,7 +4,8 @@ const ActionLog = (props) => {
 
     const monsterKilled = () => {
         if (props.currentMonster.hp === 0) {
-            return (<p>Congratulations, you killed the monster! The monster has dropped {props.currentMonster.gold} gold.</p>)
+            return (<div>Congratulations, you killed the monster! The monster has dropped {props.currentMonster.gold} gold.
+            {props.goButton}</div>)
         }
     }
     console.log(props.player.hp)
@@ -15,9 +16,9 @@ const ActionLog = (props) => {
         }
     }
     return (
-        <div><p>Action Generated</p>
-        <p>Monster HP is now {props.currentMonster.hp}<br />
-        Your HP is now {props.player.hp}</p>
+        <div>
+        <p><b>Monster HP is now {props.currentMonster.hp}<br />
+        Your HP is now {props.player.hp}</b></p>
         {monsterKilled()}
         {playerKilled()}
         </div>

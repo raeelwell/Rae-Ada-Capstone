@@ -19,6 +19,8 @@ gold: 50}
 
     const marketButton = <button className = 'market-button'
     onClick={() => {
+        props.player.hp = 50
+        props.setActionLog([])
         navigate("/Market");
     }}>Back to the Market</button>
 
@@ -36,9 +38,11 @@ gold: 50}
     const goButton = <button className = 'go-button'
     onClick={() => {
         props.generateMonster(monster);
-        //props.setMonsterHP(monster.hp);
+        props.setActionLog([])
     }}>Keep Going</button>
 
+
+    //this function changes state which should be immutable.
     const generateAction = (monster, selectedSpell, player) => {
         console.log(player.hp)
         if (monster.hp - selectedSpell.damage > 0) {
@@ -61,30 +65,45 @@ gold: 50}
     props.generateMonster(monster)
     };
 
-    const ifMonster = (monster) => {
-        if (monster) {
+    const ifMonster = (monster, player) => {
+        if (player.hp === 0) {
             return (
                 <div><Monster
                     key={monster.id}
                     name={monster.name}
                     damage={monster.damage}
                     hp={monster.hp}
-                    gold={monster.gold} />
-                    <button className = 'attack-button'
-                    onClick={(e) => {
-                        console.log(props.currentMonster)
-                        generateAction(props.currentMonster, props.selectedSpell, props.player)
-                        props.setActionLog(<ActionLog
-                            currentMonster = {props.currentMonster}
-                            selectedSpell = {props.selectedSpell} 
-                            setMonsterHP = {props.setMonsterHP} 
-                            player = {props.player} />)
-                    }}>Cast Spell</button></div>
+                    gold={monster.gold} /></div>
             );
+        } else {
+        if (monster) {
+            if (monster.hp !== 0) {
+                return (
+                    <div><Monster
+                        key={monster.id}
+                        name={monster.name}
+                        damage={monster.damage}
+                        hp={monster.hp}
+                        gold={monster.gold} />
+                        <button className = 'attack-button'
+                        onClick={(e) => {
+                            generateAction(props.currentMonster, props.selectedSpell, props.player)
+                            props.setActionLog(<ActionLog
+                                goButton = {props.goButton}
+                                currentMonster = {props.currentMonster}
+                                selectedSpell = {props.selectedSpell} 
+                                setMonsterHP = {props.setMonsterHP} 
+                                player = {props.player} />)
+                        }}>Cast Spell</button></div>
+                );
+            } else {
+                return (<div>{marketButton}
+                    {goButton}</div>)
+            }
         } else {
             return (<div>{marketButton}
             {goButton}</div>)
-        }
+        }}
     };
 
     const ifActionLog = (actionLog) => {
@@ -107,7 +126,7 @@ gold: 50}
         setSelectedSpell = {props.setSelectedSpell}
         selectedSpell = {props.selectedSpell} />
         {ifSpellSelected(props.selectedSpell)}
-        {ifMonster(props.currentMonster)}
+        {ifMonster(props.currentMonster, props.player)}
         {ifActionLog(props.actionLogDisplay)}
         {landingButton}
         </div>)

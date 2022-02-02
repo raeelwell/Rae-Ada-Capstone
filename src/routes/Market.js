@@ -12,6 +12,7 @@ const Market = (props) => {
     console.log(props.player.gold)
     let haveSpell = true
     
+    //cannot buy spell doesn't allow you to buy a spell but does not trigger 19-20 either
     const buyButton = <button className = 'buy-button'
     onClick={(e) => {
         if (props.buySpell(props.selectedSpell.id, props.player) === false) {
