@@ -15,36 +15,45 @@ for (let spell of spells){
     name: spell.name,
     damage: spell.damage,
     cost: spell.cost,
-    owned: spell.owned
+    owned: spell.owned,
+    description: spell.description
   });
 };
 
 function App() {
   const [nameInput, setNameInput] = useState('');
   const [spells, setSpells] = useState(allSpells);
-  const [playerInv, setplayerInv] = useState([]);
-  const [selectedSpell, setSelectedSpell] = useState(allSpells[0]);
+  const [playerInv, setPlayerInv] = useState([]);
+  const [selectedSpell, setSelectedSpell] = useState(null);
   const [currentMonster, generateMonster] = useState(null);
   const [playerState, setPlayerState] = useState(null);
-  //const [monsterHP, setMonsterHP] = useState(null);
+  const [playerGold, setPlayerGold] = useState(50);
   const [actionLogDisplay, setActionLog] = useState([])
 
-  const monster = {id: 0,
-    name: "minotaur",
-  hp: 40,
-  damage: 30}
+//   const monster = {id: 0,
+//     name: "minotaur",
+//   hp: 40,
+//   damage: 30,
+// gold: 10}
 
   useEffect(() => setPlayerState({id: 0,
     name: {nameInput},
   hp: 50,
   spells: {playerInv},
-  gold: 50}), [nameInput, playerInv])
+  gold: {playerGold}
+}), 
+  [nameInput, playerInv, playerGold])
 
-  const buySpell = (id) => {
+  const buySpell = (id, player) => {
     setSpells(spells.map(spell => {
       if (spell.id === id) {
+        if (player.gold.playerGold > spell.cost) {
         spell.owned = true
-      }
+        setPlayerGold(player.gold.playerGold - spell.cost)
+      } else {
+        console.log("no affordy spell")
+        return false
+      }}
       return spell;
     }));
   };
@@ -56,8 +65,17 @@ function App() {
         spellList.push(spell)
       }
     }
-    setplayerInv(spellList);
+    setPlayerInv(spellList);
   };
+  
+  const resetSpells = () => {
+    let spellList = []
+    for (let spell of allSpells) {
+      spell.owned = false
+      spellList.push(spell)
+      }
+    setSpells(spellList)
+  }
 
 
   return (
@@ -74,9 +92,11 @@ function App() {
     setSelectedSpell = {setSelectedSpell}
     selectedSpell = {selectedSpell}
     buySpell = {buySpell}
-    generatePlayerInv = {generatePlayerInv} />} />
+    generatePlayerInv = {generatePlayerInv}
+    playerGold = {playerGold}
+    setPlayerGold = {setPlayerGold} />} />
     <Route path="woods" element={<Woods
-    monster = {monster}
+    // monster = {monster}
     generateMonster = {generateMonster}
     currentMonster = {currentMonster}
     allSpells = {allSpells}
@@ -84,12 +104,14 @@ function App() {
     selectedSpell = {selectedSpell}
     player = {playerState}
     playerState = {playerState}
+    //two player objects here are the same ^
     setPlayerState = {setPlayerState}
-    // monsterHP = {monsterHP}
-    // setMonsterHP = {setMonsterHP}
     actionLogDisplay = {actionLogDisplay}
     setActionLog = {setActionLog}
-    playerInv = {playerInv} />} />
+    playerInv = {playerInv}
+    setPlayerInv = {setPlayerInv}
+    setPlayerGold = {setPlayerGold}
+    resetSpells = {resetSpells} />} />
     </Routes>
     </BrowserRouter>
   );

@@ -14,7 +14,8 @@ const Woods = (props) => {
     const monster = {id: 0,
         name: "minotaur",
     hp: 40,
-    damage: 30}
+    damage: 30,
+gold: 50}
 
     const marketButton = <button className = 'market-button'
     onClick={() => {
@@ -23,6 +24,12 @@ const Woods = (props) => {
 
     const landingButton = <button className = 'landing-button'
     onClick={() => {
+        props.setPlayerInv([])
+        props.setPlayerGold(50)
+        props.resetSpells()
+        props.generateMonster(monster)
+        props.setActionLog([])
+        props.setSelectedSpell(null)
         navigate("/");
     }}>Restart</button>
 
@@ -38,6 +45,7 @@ const Woods = (props) => {
             monster.hp = monster.hp - selectedSpell.damage
         } else {
             monster.hp = 0
+            player.gold.playerGold = monster.gold + player.gold.playerGold
         };
         if (monster.hp !== 0) {
             console.log("monster hp is above zero")
@@ -49,7 +57,6 @@ const Woods = (props) => {
                 player.hp = 0
             };
     }
-    console.log(player.hp)
     props.setPlayerState(player)
     props.generateMonster(monster)
     };
@@ -61,7 +68,8 @@ const Woods = (props) => {
                     key={monster.id}
                     name={monster.name}
                     damage={monster.damage}
-                    hp={monster.hp} />
+                    hp={monster.hp}
+                    gold={monster.gold} />
                     <button className = 'attack-button'
                     onClick={(e) => {
                         console.log(props.currentMonster)
@@ -71,10 +79,11 @@ const Woods = (props) => {
                             selectedSpell = {props.selectedSpell} 
                             setMonsterHP = {props.setMonsterHP} 
                             player = {props.player} />)
-                    }}>Attack</button></div>
+                    }}>Cast Spell</button></div>
             );
         } else {
-            return (<div></div>)
+            return (<div>{marketButton}
+            {goButton}</div>)
         }
     };
 
@@ -100,8 +109,6 @@ const Woods = (props) => {
         {ifSpellSelected(props.selectedSpell)}
         {ifMonster(props.currentMonster)}
         {ifActionLog(props.actionLogDisplay)}
-        {goButton}
-        {marketButton}
         {landingButton}
         </div>)
 }

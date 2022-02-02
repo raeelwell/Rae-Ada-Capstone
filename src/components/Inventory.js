@@ -24,13 +24,6 @@ const Inventory = (props) => {
         } return null
         };
 
-    //doesn't work yet
-    const ifSpellSelected = (spell) => {
-        if (spell) {
-            return <SpellDisplay spell = {props.selectedSpell} />
-        }
-    }
-
     return (<select className="spellList"
     size="5" 
     onClick={(e) => {

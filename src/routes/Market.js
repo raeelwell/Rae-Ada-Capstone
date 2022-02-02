@@ -8,17 +8,40 @@ import SpellDisplay from '../components/SpellDisplay';
 
 const Market = (props) => {
     let navigate = useNavigate();
+
+    console.log(props.player.gold)
+    let haveSpell = true
     
     const buyButton = <button className = 'buy-button'
     onClick={(e) => {
-        props.buySpell(props.selectedSpell.id)
-        //use UseEffect, when allSpells changes calls generatePlayerInv in useEffect
+        if (props.buySpell(props.selectedSpell.id, props.player) === false) {
+            console.log("cannot buy spell")
+            let haveSpell = false
+        }
         props.generatePlayerInv()
     }}>Purchase</button>
 
+    const noSpell = (haveSpell) => {
+        if (haveSpell === false) {
+            return (<p>You cannot afford that spell!</p>)
+        }
+    }
+
+    //this does not work
+    const checkSpellsInInventory = (player) => {
+        console.log(player.spells.playerInv)
+        if (player.spells.playerInv === []) {
+            console.log("Player Inventory has nothing")
+        } else {
+            props.setSelectedSpell(null)
+            navigate("/Woods");
+        }
+    }
+
     const woodsButton = <button className = 'woods-button'
     onClick={() => {
-        navigate("/Woods");
+        console.log(props.player)
+        checkSpellsInInventory(props.player)
     }}>Go Into The Woods</button>
 
     const shopInventory = () => {
@@ -45,6 +68,7 @@ const Market = (props) => {
         {shopInventory()}
         {playerInventory()} <br />
         {ifSpellSelected(props.selectedSpell)}
+        {noSpell(haveSpell)}
         {buyButton} <br />
         {woodsButton}
         </div>)
