@@ -10,13 +10,13 @@ import Woods from "./routes/Woods";
 
 const rootElement = document.getElementById("root");
 render(
-  <BrowserRouter>
-    <Routes>
+  <App>
+    {/* <Routes>
       <Route path="/" element={<App />} />
         <Route path="market" element={<Market />} />
         <Route path="woods" element={<Woods />} />
-    </Routes>
-  </BrowserRouter>,
+    </Routes> */}
+  </App>,
   rootElement
 );
 

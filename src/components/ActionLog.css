@@ -1,0 +1,6 @@
+.action {
+    font-size: 1.2em;
+    background-color: cornflowerblue;
+    display:flex;
+    flex-direction: column;
+}

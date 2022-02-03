@@ -30,12 +30,6 @@ function App() {
   const [playerGold, setPlayerGold] = useState(50);
   const [actionLogDisplay, setActionLog] = useState([])
 
-//   const monster = {id: 0,
-//     name: "minotaur",
-//   hp: 40,
-//   damage: 30,
-// gold: 10}
-
   useEffect(() => setPlayerState({id: 0,
     name: {nameInput},
   hp: 50,
@@ -50,9 +44,6 @@ function App() {
         if (player.gold.playerGold > spell.cost) {
         spell.owned = true
         setPlayerGold(player.gold.playerGold - spell.cost)
-      } else {
-        console.log("no affordy spell")
-        return false
       }}
       return spell;
     }));

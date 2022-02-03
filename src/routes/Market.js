@@ -1,6 +1,6 @@
-import '../App.css';
+import './Market.css';
 import { useParams, useNavigate } from "react-router-dom";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Inventory from '../components/Inventory'
 import Stats from '../components/Stats'
 import spells from '../data/spells'
@@ -8,40 +8,31 @@ import SpellDisplay from '../components/SpellDisplay';
 
 const Market = (props) => {
     let navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
-    console.log(props.player.gold)
-    let haveSpell = true
-    
-    //cannot buy spell doesn't allow you to buy a spell but does not trigger 19-20 either
-    const buyButton = <button className = 'buy-button'
+    const buyButton = <button className = "buttons"
     onClick={(e) => {
-        if (props.buySpell(props.selectedSpell.id, props.player) === false) {
-            console.log("cannot buy spell")
-            let haveSpell = false
+        if (props.player.gold.playerGold < props.selectedSpell.cost) {
+            setErrorMessage("You cannot afford that spell!")
         }
+        props.buySpell(props.selectedSpell.id, props.player)
         props.generatePlayerInv()
     }}>Purchase</button>
 
-    const noSpell = (haveSpell) => {
-        if (haveSpell === false) {
-            return (<p>You cannot afford that spell!</p>)
-        }
-    }
-
-    //this does not work
     const checkSpellsInInventory = (player) => {
         console.log(player.spells.playerInv)
-        if (player.spells.playerInv === []) {
-            console.log("Player Inventory has nothing")
+        if (player.spells.playerInv.length  === 0) {
+            console.log("error - no spells in inventory")
+            setErrorMessage("It's too dangerous to go into the woods without a spell! You should purchase a spell first!")
         } else {
             props.setSelectedSpell(null)
+            setErrorMessage('')
             navigate("/Woods");
         }
     }
 
-    const woodsButton = <button className = 'woods-button'
+    const woodsButton = <button className = 'buttons'
     onClick={() => {
-        console.log(props.player)
         checkSpellsInInventory(props.player)
     }}>Go Into The Woods</button>
 
@@ -63,17 +54,22 @@ const Market = (props) => {
         }
     }
 
-    return (<div><p>This is the Market page.</p>
+    return (<React.Fragment><h1 className= "welcome">Welcome to the Market!</h1>
+    <header>
         <Stats
         player = {props.player} />
-        {shopInventory()}
-        {playerInventory()} <br />
-        {ifSpellSelected(props.selectedSpell)}
-        {noSpell(haveSpell)}
-        {buyButton} <br />
-        {woodsButton}
-        </div>)
-    
+    </header>
+    <main>
+        <div className="inventory">
+        <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
+        <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+        </div>
+        <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
+        <div className="errorMessage">{errorMessage}</div>
+        <div className="buttons">{buyButton}</div>
+        <div className="buttons">{woodsButton} </div>
+    </main>
+    </React.Fragment>)
 }
 
 export default Market;

@@ -1,0 +1,29 @@
+.welcome {
+    text-align: center;
+    font-family:Arial, Helvetica, sans-serif
+}
+
+.inventory {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    font-size: 1.7em;
+}
+
+.selectedSpell {
+    display: flex;
+    justify-content: center;
+    font-size: 1.4em;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    font-size: 1.1em;
+}
+
+.errorMessage {
+    justify-content: center;
+    font-size: 1.7em;
+}

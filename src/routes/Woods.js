@@ -1,26 +1,36 @@
-import '../App.css';
-import React, { useEffect } from 'react';
+import './Woods.css';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import Monster from '../components/Monster'
 import Inventory from '../components/Inventory'
 import ActionLog from '../components/ActionLog'
 import Stats from '../components/Stats'
 import SpellDisplay from '../components/SpellDisplay';
+import monsterNameList from '../data/monsters.json'
 import Landing from '../components/Landing';
 
 const Woods = (props) => {
     let navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const monster = {id: 0,
-        name: "minotaur",
-    hp: 40,
-    damage: 30,
-gold: 50}
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min) ) + min;
+    }
+
+    const createMonster = () => {
+        return ({name: monsterNameList[getRndInteger(0,5)],
+        hp: getRndInteger(30,80),
+        damage: getRndInteger(15,40),
+        gold: getRndInteger(5,40)
+    })
+}
+    const monster = createMonster()
 
     const marketButton = <button className = 'market-button'
     onClick={() => {
         props.player.hp = 50
         props.setActionLog([])
+        props.setSelectedSpell(null)
         navigate("/Market");
     }}>Back to the Market</button>
 
@@ -29,7 +39,7 @@ gold: 50}
         props.setPlayerInv([])
         props.setPlayerGold(50)
         props.resetSpells()
-        props.generateMonster(monster)
+        props.generateMonster(null)
         props.setActionLog([])
         props.setSelectedSpell(null)
         navigate("/");
@@ -41,28 +51,31 @@ gold: 50}
         props.setActionLog([])
     }}>Keep Going</button>
 
-
-    //this function changes state which should be immutable.
     const generateAction = (monster, selectedSpell, player) => {
-        console.log(player.hp)
-        if (monster.hp - selectedSpell.damage > 0) {
-            monster.hp = monster.hp - selectedSpell.damage
+        const newMonster = {...monster}
+        const newPlayer = {...player}
+
+        if (!selectedSpell) {
+                setErrorMessage("You must first select a spell!")
         } else {
-            monster.hp = 0
-            player.gold.playerGold = monster.gold + player.gold.playerGold
+            setErrorMessage('')
+        }
+        if (newMonster.hp - selectedSpell.damage > 0) {
+            newMonster.hp = monster.hp - selectedSpell.damage
+        } else {
+            newMonster.hp = 0
+            newPlayer.gold.playerGold = monster.gold + player.gold.playerGold
         };
-        if (monster.hp !== 0) {
-            console.log("monster hp is above zero")
-            if (player.hp - monster.damage > 0) {
-                console.log("player hp minus monster HP is above zero")
-                player.hp = player.hp - monster.damage
-                console.log(player.hp)
+        if (newMonster.hp !== 0) {
+            console.log(`monster hp is ${newMonster.hp}`)
+            if (newPlayer.hp - monster.damage > 0) {
+                console.log("player hp minus monster damage is above zero")
+                newPlayer.hp = player.hp - monster.damage
             } else {
-                player.hp = 0
+                newPlayer.hp = 0
             };
-    }
-    props.setPlayerState(player)
-    props.generateMonster(monster)
+    };
+    return ([newMonster, newPlayer])
     };
 
     const ifMonster = (monster, player) => {
@@ -79,29 +92,31 @@ gold: 50}
         if (monster) {
             if (monster.hp !== 0) {
                 return (
-                    <div><Monster
+                    <div><div className="monster"><p>You encounter a {monster.name}!</p><br />
+                    <Monster
                         key={monster.id}
                         name={monster.name}
                         damage={monster.damage}
                         hp={monster.hp}
-                        gold={monster.gold} />
-                        <button className = 'attack-button'
+                        gold={monster.gold} /></div>
+                        <button className = 'buttons'
                         onClick={(e) => {
-                            generateAction(props.currentMonster, props.selectedSpell, props.player)
-                            props.setActionLog(<ActionLog
+                            const actionResult = generateAction(props.currentMonster, props.selectedSpell, props.player)
+                            props.setActionLog(<ActionLog 
                                 goButton = {props.goButton}
-                                currentMonster = {props.currentMonster}
-                                selectedSpell = {props.selectedSpell} 
-                                setMonsterHP = {props.setMonsterHP} 
-                                player = {props.player} />)
+                                currentMonster = {actionResult[0]}
+                                selectedSpell = {props.selectedSpell}
+                                player = {actionResult[1]}/>)
+                            props.setPlayerState(actionResult[1])
+                            props.generateMonster(actionResult[0])
                         }}>Cast Spell</button></div>
                 );
             } else {
-                return (<div>{marketButton}
+                return (<div className="buttons">{marketButton}
                     {goButton}</div>)
             }
         } else {
-            return (<div>{marketButton}
+            return (<div className="buttons">{marketButton}
             {goButton}</div>)
         }}
     };
@@ -118,17 +133,27 @@ gold: 50}
         }
     }
 
+    const playerInventory = () => {
+        return (<Inventory allSpells = {props.playerInv}
+            setSelectedSpell = {props.setSelectedSpell}
+            selectedSpell = {props.selectedSpell} />)
+    }
+
     return (<div>
-        <h1>This is the Woods Page</h1>
-        <Stats
-        player = {props.player} />
-        <Inventory allSpells = {props.playerInv}
-        setSelectedSpell = {props.setSelectedSpell}
-        selectedSpell = {props.selectedSpell} />
-        {ifSpellSelected(props.selectedSpell)}
-        {ifMonster(props.currentMonster, props.player)}
-        {ifActionLog(props.actionLogDisplay)}
-        {landingButton}
+        <h1 className="welcome">The Woods are dark and creepy</h1>
+        <header>
+            <Stats
+            player = {props.player} />
+        </header>
+        <main>
+            <div className="inventory">{playerInventory()}</div>
+            <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
+            <div className="errorMessage">{errorMessage}</div>
+            {ifMonster(props.currentMonster, props.player)}
+            {ifActionLog(props.actionLogDisplay)} <br />
+            <div className = "restartButton">
+            {landingButton}</div>
+        </main>
         </div>)
 }
 
