@@ -1,0 +1,28 @@
+.characterPortrait {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-style: double;
+    border-width: 10px;
+    border-color: rgb(70, 50, 13);
+    background-image: url('../images/dirt.jpg');
+    padding: 50px;
+    padding-top: 25px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.arrowKeys {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+}
+
+.hideGuide {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    background-color: rgb(224, 213, 183);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+}

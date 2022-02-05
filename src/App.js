@@ -20,6 +20,10 @@ for (let spell of spells){
   });
 };
 
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
 function App() {
   const [nameInput, setNameInput] = useState('');
   const [spells, setSpells] = useState(allSpells);
@@ -29,12 +33,13 @@ function App() {
   const [playerState, setPlayerState] = useState(null);
   const [playerGold, setPlayerGold] = useState(50);
   const [actionLogDisplay, setActionLog] = useState([])
+  const [portraitIndex, setPortraitIndex] = useState(getRndInteger(0,48))
 
   useEffect(() => setPlayerState({id: 0,
     name: {nameInput},
   hp: 50,
   spells: {playerInv},
-  gold: {playerGold}
+  gold: {playerGold},
 }), 
   [nameInput, playerInv, playerGold])
 
@@ -73,9 +78,13 @@ function App() {
     <BrowserRouter>
     <Routes>
     <Route path="/" element={<Landing
+    playerState = {playerState}
+    portraitIndex = {portraitIndex}
+    setPortraitIndex = {setPortraitIndex}
     nameInput = {nameInput}
     setNameInput = {setNameInput} />} />
     <Route path="market" element={<Market
+    portraitIndex = {portraitIndex}
     player = {playerState}
     playerName = {nameInput}
     allSpells = {allSpells}

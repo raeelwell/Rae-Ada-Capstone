@@ -1,5 +1,7 @@
 body {
-    background-color: rgb(118, 151, 125);
+    background-color: rgb(116, 157, 125);
+    background-image:url('../images/forest-bg.jpeg');
+    opacity: .75;
 }
 
 .welcome {

@@ -5,6 +5,7 @@ import Inventory from '../components/Inventory'
 import Stats from '../components/Stats'
 import spells from '../data/spells'
 import SpellDisplay from '../components/SpellDisplay';
+import Portraits from '../components/Portraits';
 
 const Market = (props) => {
     let navigate = useNavigate();
@@ -51,20 +52,27 @@ const Market = (props) => {
     const ifSpellSelected = (spell) => {
         if (spell) {
             return <SpellDisplay spell = {props.selectedSpell} />
+        } else {
+            return <p>First, select a spell from the shop.<br />
+            Use the purchase button to buy the spell.</p>
         }
     }
 
-    return (<React.Fragment><h1 className= "welcome">Welcome to the Market!</h1>
-    <header>
-        <Stats
-        player = {props.player} />
-    </header>
+    return (<React.Fragment><header><h1 className= "welcome">Welcome to the Market!</h1></header>
     <main>
-        <div className="inventory">
-        <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
-        <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+        <div className="oneLine">
+            <Portraits
+            hideArrows = {true}
+            portraitIndex = {props.portraitIndex} />
+            <div className ="statsBlock"><Stats
+            player = {props.player} />
+            <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
+            </div>
+            <div className="inventory">
+            <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
+            <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+            </div>
         </div>
-        <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
         <div className="errorMessage">{errorMessage}</div>
         <div className="buttons">{buyButton}</div>
         <div className="buttons">{woodsButton} </div>
