@@ -32,12 +32,10 @@ const Landing = (props) => {
         Every day they browse the market stalls for new spells to buy.<br />
         By the moonlight, they journey into the unknown forest where they defeat monsters with their newfound power...</p>
         
-        <Portraits
+        <div className ="createCharacter"><Portraits
         portraitIndex = {props.portraitIndex}
         setPortraitIndex = {props.setPortraitIndex}
-        hideArrows = {false} />
-
-        <div className="form">{form}</div>
+        hideArrows = {false} /> <div className="form">{form}</div></div>
 
         <Link to="/market">Market</Link>
     <br />

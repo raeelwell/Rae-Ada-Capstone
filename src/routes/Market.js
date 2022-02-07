@@ -32,7 +32,7 @@ const Market = (props) => {
         }
     }
 
-    const woodsButton = <button className = 'buttons'
+    const woodsButton = <button className = "buttons"
     onClick={() => {
         checkSpellsInInventory(props.player)
     }}>Go Into The Woods</button>
@@ -64,18 +64,20 @@ const Market = (props) => {
             <Portraits
             hideArrows = {true}
             portraitIndex = {props.portraitIndex} />
-            <div className ="statsBlock"><Stats
-            player = {props.player} />
+            <div className ="statsBlock"><div className="stats"><Stats
+            player = {props.player} /></div>
             <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
             </div>
             <div className="inventory">
-            <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
-            <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+                <div className="bothInventories">
+                <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
+                <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+                </div>
+            <div className="buyButton">{buyButton}</div>
             </div>
         </div>
         <div className="errorMessage">{errorMessage}</div>
-        <div className="buttons">{buyButton}</div>
-        <div className="buttons">{woodsButton} </div>
+        <div className="woodsButton">{woodsButton} </div>
     </main>
     </React.Fragment>)
 }

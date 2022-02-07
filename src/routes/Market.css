@@ -1,4 +1,5 @@
 .welcome {
+    margin: auto;
     text-align: center;
     font-family:Arial, Helvetica, sans-serif;
     background-image: url('../images/dirt.jpg');    
@@ -8,21 +9,32 @@
     border-width: 10px;
     border-color: rgb(70, 50, 13);
     padding: 1em;
+}
 
+.stats {
+    justify-content: center;
+    display: flex;
+}
 
+.statsBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.4em;
+    gap: 10px;
 }
 
 .oneLine {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
 .inventory {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    gap: 100px;
-    font-size: 1.7em;
+    gap: 10px;
     background-image: url('../images/dirt.jpg');
     width:fit-content;
     height:fit-content;
@@ -32,17 +44,23 @@
     padding: 1em;
 }
 
+.bothInventories {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 100px;
+    font-size: 1.7em;
+}
+
 .selectedSpell {
     display: flex;
     justify-content: space-evenly;
-    font-size: 1.4em;
     background-image: url('../images/dirt.jpg');
     width:fit-content;
     height:fit-content;
     border-style: double;
     border-width: 10px;
     border-color: rgb(70, 50, 13);
-
     padding: 1em;
 }
 
@@ -50,11 +68,12 @@
     display: flex;
     justify-content: center;
     gap: 100px;
-    font-size: 1.1em;
+    margin: auto;
     background-image: url('../images/dirt.jpg');
     width:fit-content;
     height:fit-content;
     padding: 1em;
+    font-size: 1.1em;
 }
 
 .errorMessage {

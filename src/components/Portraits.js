@@ -91,7 +91,7 @@ const Portraits = (props) => {
 
     return (<div className="characterPortrait">
         <div className="hideGuide">{hideGuide(props.hideArrows)}</div>
-        <img alt="character portrait" src={portraitList[props.portraitIndex]} width="200" height="200"></img>
+        <img className="charImage" alt="character portrait" src={portraitList[props.portraitIndex]} width="200" height="200"></img>
         <div className="arrowKeys">{hideArrows(props.hideArrows)}</div>
         </div>)
 };

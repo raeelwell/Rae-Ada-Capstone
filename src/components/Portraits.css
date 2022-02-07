@@ -7,9 +7,15 @@
     border-color: rgb(70, 50, 13);
     background-image: url('../images/dirt.jpg');
     padding: 50px;
-    padding-top: 25px;
+    padding-top: 45px;
     width: fit-content;
     height: fit-content;
+}
+
+.charImage {
+    border-style: solid;
+    border-color: rgb(70, 50, 13);
+    border-radius: 5px;
 }
 
 .arrowKeys {

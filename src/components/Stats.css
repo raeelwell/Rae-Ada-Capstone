@@ -1,4 +1,11 @@
 .Stats {
     text-align: center;
-    background-color: rgb(183, 221, 221);
+    background-image: url('../images/dirt.jpg');    
+    width:fit-content;
+    height:fit-content;
+    border-style: double;
+    border-width: 10px;
+    border-color: rgb(70, 50, 13);
+    padding: 1em;
+
   }

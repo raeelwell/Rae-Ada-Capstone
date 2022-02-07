@@ -139,6 +139,22 @@ const Woods = (props) => {
             selectedSpell = {props.selectedSpell} />)
     }
 
+
+    // <div className="oneLine">
+    //         <Portraits
+    //         hideArrows = {true}
+    //         portraitIndex = {props.portraitIndex} />
+    //         <div className ="statsBlock"><div className="stats"><Stats
+    //         player = {props.player} /></div>
+    //         <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
+    //         </div>
+    //         <div className="inventory">
+    //             <div className="bothInventories">
+    //             <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
+    //             <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+    //             </div>
+    //         <div className="buyButton">{buyButton}</div>
+    //         </div>
     return (<div>
         <h1 className="welcome">The Woods are dark and creepy</h1>
         <header>
