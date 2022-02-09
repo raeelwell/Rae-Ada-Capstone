@@ -10,15 +10,27 @@ import Portraits from '../components/Portraits';
 const Market = (props) => {
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+    const [marketInv, setMarketInv] = useState(props.allSpells.slice(1));
 
     const buyButton = <button className = "buttons"
     onClick={(e) => {
         if (props.player.gold.playerGold < props.selectedSpell.cost) {
             setErrorMessage("You cannot afford that spell!")
-        }
+        } else {
         props.buySpell(props.selectedSpell.id, props.player)
         props.generatePlayerInv()
-    }}>Purchase</button>
+        setMarketInv(generateMarketInv())
+    }}}>Purchase</button>
+
+    const generateMarketInv = () => {
+        let spellList = []
+        for (let spell of marketInv) {
+            if (spell.owned === false) {
+            spellList.push(spell)
+        }
+        }
+        return spellList;
+    };
 
     const checkSpellsInInventory = (player) => {
         console.log(player.spells.playerInv)
@@ -38,7 +50,7 @@ const Market = (props) => {
     }}>Go Into The Woods</button>
 
     const shopInventory = () => {
-        return (<Inventory allSpells = {props.allSpells}
+        return (<Inventory allSpells = {marketInv}
         setSelectedSpell = {props.setSelectedSpell}
         selectedSpell = {props.selectedSpell} />)
     }
@@ -49,14 +61,13 @@ const Market = (props) => {
             selectedSpell = {props.selectedSpell} />)
     }
 
-    const ifSpellSelected = (spell) => {
+    const ifSpellSelected = (spell, errorMessage) => {
         if (spell) {
             return <SpellDisplay spell = {props.selectedSpell} />
         } else {
             return <p>First, select a spell from the shop.<br />
-            Use the purchase button to buy the spell.</p>
+            Use the purchase button to buy the spell.</p>}
         }
-    }
 
     return (<React.Fragment><header><h1 className= "welcome">Welcome to the Market!</h1></header>
     <main>
@@ -76,7 +87,7 @@ const Market = (props) => {
             <div className="buyButton">{buyButton}</div>
             </div>
         </div>
-        <div className="errorMessage">{errorMessage}</div>
+        { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}
         <div className="woodsButton">{woodsButton} </div>
     </main>
     </React.Fragment>)

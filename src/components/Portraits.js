@@ -77,16 +77,13 @@ const Portraits = (props) => {
                 newIndex = 0
             };
             props.setPortraitIndex(newIndex)
-            console.log(newIndex)
         } else {
             let newIndex = index - 1
             if (newIndex === -1) {
                 newIndex = 48
             }
             props.setPortraitIndex(newIndex)
-            console.log(newIndex)
         }
-        console.log(index)
     };
 
     return (<div className="characterPortrait">

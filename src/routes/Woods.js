@@ -7,24 +7,33 @@ import ActionLog from '../components/ActionLog'
 import Stats from '../components/Stats'
 import SpellDisplay from '../components/SpellDisplay';
 import monsterNameList from '../data/monsters.json'
+import Portraits from '../components/Portraits';
 import Landing from '../components/Landing';
+import react from 'react';
 
 const Woods = (props) => {
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+    const [poisonStatus, setPoisonStatus] = useState(false)
 
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min) ) + min;
     }
 
-    const createMonster = () => {
+    const createMonster = (player, multiplier) => {
+        let maxDamage = 0
+        for (let spell of player.spells.playerInv) {
+            if (maxDamage < spell.damage) {
+                maxDamage = spell.damage
+            };
+        };
         return ({name: monsterNameList[getRndInteger(0,5)],
-        hp: getRndInteger(30,80),
-        damage: getRndInteger(15,40),
+        hp: Math.round(getRndInteger(30*multiplier,(maxDamage*3)*multiplier)),
+        damage: Math.round(getRndInteger(15*multiplier,(player.hp/3)*multiplier)), 
         gold: getRndInteger(5,40)
     })
 }
-    const monster = createMonster()
+    const monster = createMonster(props.player, props.monsterMultiplier)
 
     const marketButton = <button className = 'market-button'
     onClick={() => {
@@ -32,14 +41,16 @@ const Woods = (props) => {
         props.setActionLog([])
         props.setSelectedSpell(null)
         navigate("/Market");
+        props.setMonsterMultiplier(props.monsterMultiplier+0.1)
+        console.log(props.monsterMultiplier)
     }}>Back to the Market</button>
 
     const landingButton = <button className = 'landing-button'
     onClick={() => {
-        props.setPlayerInv([])
-        props.setPlayerGold(50)
+        props.setPlayerGold(0)
         props.resetSpells()
-        props.generateMonster(null)
+        props.setPlayerInv([props.allSpells[0]])
+        props.setMonster(null)
         props.setActionLog([])
         props.setSelectedSpell(null)
         navigate("/");
@@ -47,7 +58,7 @@ const Woods = (props) => {
 
     const goButton = <button className = 'go-button'
     onClick={() => {
-        props.generateMonster(monster);
+        props.setMonster(monster);
         props.setActionLog([])
     }}>Keep Going</button>
 
@@ -60,6 +71,9 @@ const Woods = (props) => {
         } else {
             setErrorMessage('')
         }
+        if (selectedSpell.damage === 0) {
+            return (effectSpell(selectedSpell, newPlayer, newMonster))
+        } else {
         if (newMonster.hp - selectedSpell.damage > 0) {
             newMonster.hp = monster.hp - selectedSpell.damage
         } else {
@@ -67,15 +81,28 @@ const Woods = (props) => {
             newPlayer.gold.playerGold = monster.gold + player.gold.playerGold
         };
         if (newMonster.hp !== 0) {
-            console.log(`monster hp is ${newMonster.hp}`)
             if (newPlayer.hp - monster.damage > 0) {
-                console.log("player hp minus monster damage is above zero")
                 newPlayer.hp = player.hp - monster.damage
             } else {
                 newPlayer.hp = 0
             };
-    };
+    }};
     return ([newMonster, newPlayer])
+    };
+
+    let poisonCount = 4;
+    //if poisonStatus = true / poisonCount -1 / if poisonCount 0, poisonStatus(false)
+    //if poisonStatus = true / monsterHP = monsterHP - 15
+
+    const effectSpell = (selectedSpell, player, monster) => {
+        if (selectedSpell.name === "Cure") {
+            player.hp = 50
+        };
+        if (selectedSpell.name === "Poison Cloud") {
+            setPoisonStatus(true)
+            player.hp = player.hp - monster.damage
+        }
+        return ([monster,player])
     };
 
     const ifMonster = (monster, player) => {
@@ -108,7 +135,7 @@ const Woods = (props) => {
                                 selectedSpell = {props.selectedSpell}
                                 player = {actionResult[1]}/>)
                             props.setPlayerState(actionResult[1])
-                            props.generateMonster(actionResult[0])
+                            props.setMonster(actionResult[0])
                         }}>Cast Spell</button></div>
                 );
             } else {
@@ -130,6 +157,10 @@ const Woods = (props) => {
     const ifSpellSelected = (spell) => {
         if (spell) {
             return <SpellDisplay spell = {props.selectedSpell} />
+        } else {
+            return <p>Push the Keep Going button to find a monster. <br />
+            Returning to the Market restores your HP to full.<br />
+            You cannot return to the market while in combat.</p>
         }
     }
 
@@ -140,37 +171,28 @@ const Woods = (props) => {
     }
 
 
-    // <div className="oneLine">
-    //         <Portraits
-    //         hideArrows = {true}
-    //         portraitIndex = {props.portraitIndex} />
-    //         <div className ="statsBlock"><div className="stats"><Stats
-    //         player = {props.player} /></div>
-    //         <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
-    //         </div>
-    //         <div className="inventory">
-    //             <div className="bothInventories">
-    //             <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
-    //             <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
-    //             </div>
-    //         <div className="buyButton">{buyButton}</div>
-    //         </div>
-    return (<div>
-        <h1 className="welcome">The Woods are dark and creepy</h1>
-        <header>
-            <Stats
-            player = {props.player} />
-        </header>
-        <main>
-            <div className="inventory">{playerInventory()}</div>
-            <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
-            <div className="errorMessage">{errorMessage}</div>
+    return (<react.Fragment><header><h1 className= "welcome">By The Moonlight, you wander into the woods</h1></header>
+    <div>
+            <div className="oneLine">
+                <Portraits
+                hideArrows = {true}
+                portraitIndex = {props.portraitIndex} />
+                <div className ="statsBlock"><div className="stats"><Stats
+                player = {props.player} /></div>
+                <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
+                </div>
+                <div className="inventory"><div className="bothInventories">
+                <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div></div>
+                </div>
+            </div>
+
+            { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}
             {ifMonster(props.currentMonster, props.player)}
             {ifActionLog(props.actionLogDisplay)} <br />
             <div className = "restartButton">
             {landingButton}</div>
-        </main>
-        </div>)
+        </div>
+        </react.Fragment>)
 }
 
 export default Woods;

@@ -26,14 +26,16 @@ function getRndInteger(min, max) {
 
 function App() {
   const [nameInput, setNameInput] = useState('');
-  const [spells, setSpells] = useState(allSpells);
-  const [playerInv, setPlayerInv] = useState([]);
+  const [spells, setSpells] = useState(allSpells.slice(1));
+  const [playerInv, setPlayerInv] = useState([allSpells[0]]);
   const [selectedSpell, setSelectedSpell] = useState(null);
-  const [currentMonster, generateMonster] = useState(null);
+  const [currentMonster, setMonster] = useState(null);
   const [playerState, setPlayerState] = useState(null);
   const [playerGold, setPlayerGold] = useState(50);
   const [actionLogDisplay, setActionLog] = useState([])
   const [portraitIndex, setPortraitIndex] = useState(getRndInteger(0,48))
+  const [monsterMultiplier, setMonsterMultiplier] = useState(1);
+  const [narrative, setNarrative] = useState('')
 
   useEffect(() => setPlayerState({id: 0,
     name: {nameInput},
@@ -46,7 +48,7 @@ function App() {
   const buySpell = (id, player) => {
     setSpells(spells.map(spell => {
       if (spell.id === id) {
-        if (player.gold.playerGold > spell.cost) {
+        if (player.gold.playerGold >= spell.cost) {
         spell.owned = true
         setPlayerGold(player.gold.playerGold - spell.cost)
       }}
@@ -96,8 +98,10 @@ function App() {
     playerGold = {playerGold}
     setPlayerGold = {setPlayerGold} />} />
     <Route path="woods" element={<Woods
-    // monster = {monster}
-    generateMonster = {generateMonster}
+    monsterMultiplier = {monsterMultiplier}
+    setMonsterMultiplier = {setMonsterMultiplier}
+    portraitIndex = {portraitIndex}
+    setMonster = {setMonster}
     currentMonster = {currentMonster}
     allSpells = {allSpells}
     setSelectedSpell = {setSelectedSpell}
