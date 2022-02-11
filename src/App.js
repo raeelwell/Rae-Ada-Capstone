@@ -2,7 +2,7 @@ import React, { useState, useReducer, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
 import Landing from './components/Landing';
-import spells from './data/spells.json'
+import spells from './data/spells';
 import Market from './routes/Market';
 import Woods from './routes/Woods';
 import Spell from './components/Spell';
@@ -16,7 +16,8 @@ for (let spell of spells){
     damage: spell.damage,
     cost: spell.cost,
     owned: spell.owned,
-    description: spell.description
+    description: spell.description,
+    function: spell.function
   });
 };
 
@@ -31,7 +32,7 @@ function App() {
   const [selectedSpell, setSelectedSpell] = useState(null);
   const [currentMonster, setMonster] = useState(null);
   const [playerState, setPlayerState] = useState(null);
-  const [playerGold, setPlayerGold] = useState(50);
+  const [playerGold, setPlayerGold] = useState(150);
   const [actionLogDisplay, setActionLog] = useState([])
   const [portraitIndex, setPortraitIndex] = useState(getRndInteger(0,48))
   const [monsterMultiplier, setMonsterMultiplier] = useState(1);

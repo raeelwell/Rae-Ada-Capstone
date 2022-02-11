@@ -10,11 +10,16 @@ import monsterNameList from '../data/monsters.json'
 import Portraits from '../components/Portraits';
 import Landing from '../components/Landing';
 import react from 'react';
+import spells from '../data/spells';
+import spellEffects from '../data/spellEffects'
 
 const Woods = (props) => {
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const [poisonStatus, setPoisonStatus] = useState(false)
+    const [poisonStatus, setPoisonStatus] = useState(false);
+
+    //if poisonStatus = true / poisonCount -1 / if poisonCount 0, poisonStatus(false) and poisonCount 4
+    //if poisonStatus = true / monsterHP = monsterHP - 15
 
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min) ) + min;
@@ -30,9 +35,10 @@ const Woods = (props) => {
         return ({name: monsterNameList[getRndInteger(0,5)],
         hp: Math.round(getRndInteger(30*multiplier,(maxDamage*3)*multiplier)),
         damage: Math.round(getRndInteger(15*multiplier,(player.hp/3)*multiplier)), 
-        gold: getRndInteger(5,40)
+        gold: getRndInteger(5,40),
+        statusEffects: []
     })
-}
+};
     const monster = createMonster(props.player, props.monsterMultiplier)
 
     const marketButton = <button className = 'market-button'
@@ -62,6 +68,24 @@ const Woods = (props) => {
         props.setActionLog([])
     }}>Keep Going</button>
 
+    const effects = (monster,player) => {
+        if (monster.statusEffects.length > 0) {
+            console.log(monster.statusEffects[0][0])
+            spellEffects[monster.statusEffects[0][0]](monster,player)
+            monster.statusEffects[0][1] = monster.statusEffects[0][1]-1
+        }
+        monster.statusEffects = monster.statusEffects.filter(effect => effect[1] > 0)
+        console.log(monster)
+    }
+
+    const monsterDamage = (monster,player) => {
+        if (player.hp - monster.damage > 0) {
+            player.hp = player.hp - monster.damage
+        } else {
+            player.hp = 0
+        };
+    }
+
     const generateAction = (monster, selectedSpell, player) => {
         const newMonster = {...monster}
         const newPlayer = {...player}
@@ -70,40 +94,19 @@ const Woods = (props) => {
                 setErrorMessage("You must first select a spell!")
         } else {
             setErrorMessage('')
-        }
-        if (selectedSpell.damage === 0) {
-            return (effectSpell(selectedSpell, newPlayer, newMonster))
-        } else {
-        if (newMonster.hp - selectedSpell.damage > 0) {
-            newMonster.hp = monster.hp - selectedSpell.damage
-        } else {
-            newMonster.hp = 0
+        };
+        effects(newMonster,newPlayer)
+        spells[selectedSpell.id].function(newMonster,newPlayer)
+
+        if (newMonster.hp <= 0) {
             newPlayer.gold.playerGold = monster.gold + player.gold.playerGold
+            return ([newMonster, newPlayer])
+        } else {
         };
-        if (newMonster.hp !== 0) {
-            if (newPlayer.hp - monster.damage > 0) {
-                newPlayer.hp = player.hp - monster.damage
-            } else {
-                newPlayer.hp = 0
-            };
-    }};
+        monsterDamage(newMonster,newPlayer)
+
     return ([newMonster, newPlayer])
-    };
-
-    let poisonCount = 4;
-    //if poisonStatus = true / poisonCount -1 / if poisonCount 0, poisonStatus(false)
-    //if poisonStatus = true / monsterHP = monsterHP - 15
-
-    const effectSpell = (selectedSpell, player, monster) => {
-        if (selectedSpell.name === "Cure") {
-            player.hp = 50
-        };
-        if (selectedSpell.name === "Poison Cloud") {
-            setPoisonStatus(true)
-            player.hp = player.hp - monster.damage
-        }
-        return ([monster,player])
-    };
+};
 
     const ifMonster = (monster, player) => {
         if (player.hp === 0) {
@@ -113,7 +116,8 @@ const Woods = (props) => {
                     name={monster.name}
                     damage={monster.damage}
                     hp={monster.hp}
-                    gold={monster.gold} /></div>
+                    gold={monster.gold}
+                    statusEffects={monster.statusEffects} /></div>
             );
         } else {
         if (monster) {
@@ -125,7 +129,8 @@ const Woods = (props) => {
                         name={monster.name}
                         damage={monster.damage}
                         hp={monster.hp}
-                        gold={monster.gold} /></div>
+                        gold={monster.gold}
+                        statusEffects= {monster.statusEffects} /></div>
                         <button className = 'buttons'
                         onClick={(e) => {
                             const actionResult = generateAction(props.currentMonster, props.selectedSpell, props.player)
