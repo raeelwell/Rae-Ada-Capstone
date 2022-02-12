@@ -11,8 +11,7 @@ const spells = [{"id": 0,
                 monster.hp = 0
         }}
     },
-        // return (monster,player)}} //spells[id].function()
-    {"id": 1,
+{"id": 1,
     "name": "Fireball",
     "damage": 40,
     "cost": 40,
@@ -37,38 +36,26 @@ const spells = [{"id": 0,
             monster.hp = 0
         }}},
 {"id": 3,
-    "name": "Water blast",
-    "damage": 15,
-    "cost": 15,
-    "owned": false,
-    "description": "Casts a water blast spell for 15 points of damage",
-"function": function(monster,player){
-    if (monster.hp - 15 > 0) {
-        monster.hp = monster.hp - 15
-    } else {
-            monster.hp = 0
-        }}},
-{"id": 4,
-    "name": "Wind storm",
+    "name": "Biting Wind",
     "damage": 25,
     "cost": 25,
     "owned": false,
     "description": "Casts a wind storm spell for 25 points of damage",
-function: function(monster,player){
+"function": function(monster,player){
     if (monster.hp - 25 > 0) {
         monster.hp = monster.hp - 25
     } else {
             monster.hp = 0
         }}},
-{"id": 5,
-    "name": "Cure",
+{"id": 4,
+    "name": "Cleansing Water",
     "damage": 0,
     "cost": 50,
     "owned": false,
     "description": "Uses healing magic to restore all of your HP (once per combat)",
 "function": function(monster,player){
     player.hp = 50 + monster.damage}},
-{"id": 6,
+{"id": 5,
     "name": "Poison Cloud",
     "damage": 0,
     "cost": 60,
@@ -79,7 +66,7 @@ function: function(monster,player){
         monster.statusEffects.push(["Poison Cloud", 4])
         console.log(monster)
     }},
-{"id": 7,
+{"id": 6,
     "name": "Weakness",
     "damage": 0,
     "cost": 60,
@@ -87,7 +74,18 @@ function: function(monster,player){
     "description": "Weakens the foe, halving its damage for the next two turns",
     "function": function(monster,player){
         monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Poison Cloud")
-        monster.statusEffects.push(["Weakness", 2])
+        monster.statusEffects.push(["Weakness", 3])
+        console.log(monster)
+    }},
+    {"id": 7,
+    "name": "Sharpened Senses",
+    "damage": 0,
+    "cost": 60,
+    "owned": false,
+    "description": "Strengthens your next two attacks, doubling the damage of your spells",
+    "function": function(monster,player){
+        monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Sharpened Senses")
+        monster.statusEffects.push(["Sharpened Senses", 3])
         console.log(monster)
     }}
 ];
