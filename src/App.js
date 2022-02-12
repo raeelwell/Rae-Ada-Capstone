@@ -78,47 +78,47 @@ function App() {
 
 
   return (
-    <HashRouter basename="Rae-Ada-Capstone">
+    <BrowserRouter basename="Rae-Ada-Capstone">
     <Routes>
-    <Route path="/" element={<Landing
+    <Route path="" element={<Landing
       playerState = {playerState}
       portraitIndex = {portraitIndex}
       setPortraitIndex = {setPortraitIndex}
       nameInput = {nameInput}
       setNameInput = {setNameInput} />} />
     <Route path="market" element={<Market
-    portraitIndex = {portraitIndex}
-    player = {playerState}
-    playerName = {nameInput}
-    allSpells = {allSpells}
-    playerInv = {playerInv}
-    setSelectedSpell = {setSelectedSpell}
-    selectedSpell = {selectedSpell}
-    buySpell = {buySpell}
-    generatePlayerInv = {generatePlayerInv}
-    playerGold = {playerGold}
-    setPlayerGold = {setPlayerGold} />} />
+      portraitIndex = {portraitIndex}
+      player = {playerState}
+      playerName = {nameInput}
+      allSpells = {allSpells}
+      playerInv = {playerInv}
+      setSelectedSpell = {setSelectedSpell}
+      selectedSpell = {selectedSpell}
+      buySpell = {buySpell}
+      generatePlayerInv = {generatePlayerInv}
+      playerGold = {playerGold}
+      setPlayerGold = {setPlayerGold} />} />
     <Route path="woods" element={<Woods
-    monsterMultiplier = {monsterMultiplier}
-    setMonsterMultiplier = {setMonsterMultiplier}
-    portraitIndex = {portraitIndex}
-    setMonster = {setMonster}
-    currentMonster = {currentMonster}
-    allSpells = {allSpells}
-    setSelectedSpell = {setSelectedSpell}
-    selectedSpell = {selectedSpell}
-    player = {playerState}
-    playerState = {playerState}
-    //two player objects here are the same ^
-    setPlayerState = {setPlayerState}
-    actionLogDisplay = {actionLogDisplay}
-    setActionLog = {setActionLog}
-    playerInv = {playerInv}
-    setPlayerInv = {setPlayerInv}
-    setPlayerGold = {setPlayerGold}
-    resetSpells = {resetSpells} />} />
+      monsterMultiplier = {monsterMultiplier}
+      setMonsterMultiplier = {setMonsterMultiplier}
+      portraitIndex = {portraitIndex}
+      setMonster = {setMonster}
+      currentMonster = {currentMonster}
+      allSpells = {allSpells}
+      setSelectedSpell = {setSelectedSpell}
+      selectedSpell = {selectedSpell}
+      player = {playerState}
+      playerState = {playerState}
+      //two player objects here are the same ^
+      setPlayerState = {setPlayerState}
+      actionLogDisplay = {actionLogDisplay}
+      setActionLog = {setActionLog}
+      playerInv = {playerInv}
+      setPlayerInv = {setPlayerInv}
+      setPlayerGold = {setPlayerGold}
+      resetSpells = {resetSpells} />} />
     </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
