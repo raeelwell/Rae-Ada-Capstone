@@ -16,7 +16,7 @@ import spellEffects from '../data/spellEffects'
 const Woods = (props) => {
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const [poisonStatus, setPoisonStatus] = useState(false);
+    const [isCured, setIsCured] = useState(false);
 
     //if poisonStatus = true / poisonCount -1 / if poisonCount 0, poisonStatus(false) and poisonCount 4
     //if poisonStatus = true / monsterHP = monsterHP - 15
@@ -27,6 +27,7 @@ const Woods = (props) => {
 
     const createMonster = (player, multiplier) => {
         let maxDamage = 0
+        console.log(player)
         for (let spell of player.spells.playerInv) {
             if (maxDamage < spell.damage) {
                 maxDamage = spell.damage
@@ -34,7 +35,7 @@ const Woods = (props) => {
         };
         return ({name: monsterNameList[getRndInteger(0,5)],
         hp: Math.round(getRndInteger(30*multiplier,(maxDamage*3)*multiplier)),
-        damage: Math.round(getRndInteger(15*multiplier,(player.hp/3)*multiplier)), 
+        damage: Math.round(getRndInteger(15*multiplier,(50/3)*multiplier)), 
         gold: getRndInteger(5,40),
         statusEffects: []
     })
@@ -86,6 +87,17 @@ const Woods = (props) => {
         };
     }
 
+    const monsterDeath = (monster,player) => {
+        if (monster.hp <= 0) {
+            monster.hp = 0
+            player.gold.playerGold = monster.gold + player.gold.playerGold
+            setIsCured(false)
+            return (true)
+        } else {
+            return (false)
+        }
+    }
+
     const generateAction = (monster, selectedSpell, player) => {
         const newMonster = {...monster}
         const newPlayer = {...player}
@@ -95,21 +107,33 @@ const Woods = (props) => {
         } else {
             setErrorMessage('')
         };
+
+        if (selectedSpell.name === "Cleansing Water") {
+            if (isCured === true) {
+                setErrorMessage("You can only use that spell once per combat!")
+                return [newMonster,newPlayer]
+            } else {
+            setIsCured(true)}
+        }
+
         effects(newMonster,newPlayer)
+
+        if (monsterDeath(newMonster,newPlayer)) {
+            setErrorMessage("The monster died before your spell took effect!")
+            return ([newMonster,newPlayer])
+        }
+
         spells[selectedSpell.id].function(newMonster,newPlayer)
 
-        if (newMonster.hp <= 0) {
-            newPlayer.gold.playerGold = monster.gold + player.gold.playerGold
-            return ([newMonster, newPlayer])
-        } else {
+        if (!monsterDeath(newMonster,newPlayer)) {
+            monsterDamage(newMonster,newPlayer)
         };
-        monsterDamage(newMonster,newPlayer)
 
     return ([newMonster, newPlayer])
 };
 
     const ifMonster = (monster, player) => {
-        if (player.hp === 0) {
+        if (player.hp <= 0) {
             return (
                 <div><Monster
                     key={monster.id}

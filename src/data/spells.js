@@ -29,7 +29,7 @@ const spells = [{"id": 0,
     "cost": 30,
     "owned": false,
     "description": "Casts a lightning spell for 30 points of damage",
-"function": function(monster,player){
+    "function": function(monster,player){
     if (monster.hp - 30 > 0) {
         monster.hp = monster.hp - 30
     } else {
@@ -41,7 +41,7 @@ const spells = [{"id": 0,
     "cost": 25,
     "owned": false,
     "description": "Casts a wind storm spell for 25 points of damage",
-"function": function(monster,player){
+    "function": function(monster,player){
     if (monster.hp - 25 > 0) {
         monster.hp = monster.hp - 25
     } else {
@@ -53,7 +53,7 @@ const spells = [{"id": 0,
     "cost": 50,
     "owned": false,
     "description": "Uses healing magic to restore all of your HP (once per combat)",
-"function": function(monster,player){
+    "function": function(monster,player){
     player.hp = 50 + monster.damage}},
 {"id": 5,
     "name": "Poison Cloud",
@@ -87,7 +87,20 @@ const spells = [{"id": 0,
         monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Sharpened Senses")
         monster.statusEffects.push(["Sharpened Senses", 3])
         console.log(monster)
-    }}
+    }},
+    {"id": 8,
+    "name": "Blood Siphon",
+    "damage": 16,
+    "cost": 60,
+    "owned": false,
+    "description": "Siphons energy from your foe, healing you for half of your damage dealt",
+    "function": function(monster,player){
+        if (monster.hp - 16 > 0) {
+            monster.hp = monster.hp - 16
+            player.hp = player.hp + 8
+        } else {
+                monster.hp = 0
+            }}}
 ];
 
 export default spells;
