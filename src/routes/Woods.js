@@ -14,27 +14,27 @@ import spells from '../data/spells';
 import spellEffects from '../data/spellEffects'
 
 const Woods = (props) => {
+
+    const singleUseSpells = {
+        "Cleansing Water":false,
+        "Mana Wall":false,
+        "Avarice":false}
+
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const [isCured, setIsCured] = useState(false);
-
-    //if poisonStatus = true / poisonCount -1 / if poisonCount 0, poisonStatus(false) and poisonCount 4
-    //if poisonStatus = true / monsterHP = monsterHP - 15
+    const [singleUse, setSingleUse] = useState(singleUseSpells)
 
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min) ) + min;
     }
 
     const createMonster = (player, multiplier) => {
-        let maxDamage = 0
-        console.log(player)
+        let totalCost = 0
         for (let spell of player.spells.playerInv) {
-            if (maxDamage < spell.damage) {
-                maxDamage = spell.damage
+                totalCost += spell.cost
             };
-        };
         return ({name: monsterNameList[getRndInteger(0,5)],
-        hp: Math.round(getRndInteger(30*multiplier,(maxDamage*3)*multiplier)),
+        hp: Math.round(getRndInteger(30*multiplier,(totalCost)*multiplier)),
         damage: Math.round(getRndInteger(15*multiplier,(50/3)*multiplier)), 
         gold: getRndInteger(5,40),
         statusEffects: []
@@ -49,7 +49,6 @@ const Woods = (props) => {
         props.setSelectedSpell(null)
         navigate("/Market");
         props.setMonsterMultiplier(props.monsterMultiplier+0.1)
-        console.log(props.monsterMultiplier)
     }}>Back to the Market</button>
 
     const landingButton = <button className = 'landing-button'
@@ -71,12 +70,12 @@ const Woods = (props) => {
 
     const effects = (monster,player) => {
         if (monster.statusEffects.length > 0) {
-            console.log(monster.statusEffects[0][0])
-            spellEffects[monster.statusEffects[0][0]](monster,player)
-            monster.statusEffects[0][1] = monster.statusEffects[0][1]-1
+            for (let effect in monster.statusEffects) {
+                spellEffects[monster.statusEffects[effect][0]](monster,player,monster.statusEffects[effect])
+                monster.statusEffects[effect][1] = monster.statusEffects[effect][1]-1
+            }
         }
         monster.statusEffects = monster.statusEffects.filter(effect => effect[1] > 0)
-        console.log(monster)
     }
 
     const monsterDamage = (monster,player) => {
@@ -91,7 +90,7 @@ const Woods = (props) => {
         if (monster.hp <= 0) {
             monster.hp = 0
             player.gold.playerGold = monster.gold + player.gold.playerGold
-            setIsCured(false)
+            setSingleUse(singleUseSpells)
             return (true)
         } else {
             return (false)
@@ -108,12 +107,15 @@ const Woods = (props) => {
             setErrorMessage('')
         };
 
-        if (selectedSpell.name === "Cleansing Water") {
-            if (isCured === true) {
+        if (selectedSpell.name in singleUse) {
+            if (singleUse[selectedSpell.name] === true) {
                 setErrorMessage("You can only use that spell once per combat!")
                 return [newMonster,newPlayer]
             } else {
-            setIsCured(true)}
+                const updatedSingleUseSpells = {...singleUse}
+                updatedSingleUseSpells[selectedSpell.name] = true
+                setSingleUse(updatedSingleUseSpells)
+            }
         }
 
         effects(newMonster,newPlayer)
@@ -128,6 +130,8 @@ const Woods = (props) => {
         if (!monsterDeath(newMonster,newPlayer)) {
             monsterDamage(newMonster,newPlayer)
         };
+
+        props.setMonster(newMonster)
 
     return ([newMonster, newPlayer])
 };
@@ -147,7 +151,7 @@ const Woods = (props) => {
         if (monster) {
             if (monster.hp !== 0) {
                 return (
-                    <div><div className="monster"><p>You encounter a {monster.name}!</p><br />
+                    <div><div className="monster"><p>You encounter a {monster.name}!</p>
                     <Monster
                         key={monster.id}
                         name={monster.name}

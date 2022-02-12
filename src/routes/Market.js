@@ -66,7 +66,8 @@ const Market = (props) => {
             return <SpellDisplay spell = {props.selectedSpell} />
         } else {
             return <p>First, select a spell from the shop.<br />
-            Use the purchase button to buy the spell.</p>}
+            Use the purchase button to buy the spell.
+            Interrupt spells are cast outside of combat</p>}
         }
 
     return (<React.Fragment><header><h1 className= "welcome">Welcome to the Market!</h1></header>

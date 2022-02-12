@@ -37,28 +37,28 @@ const spells = [{"id": 0,
         }}},
 {"id": 3,
     "name": "Biting Wind",
-    "damage": 25,
-    "cost": 25,
+    "damage": 20,
+    "cost": 20,
     "owned": false,
-    "description": "Casts a wind storm spell for 25 points of damage",
+    "description": "Casts a wind storm spell for 20 points of damage",
     "function": function(monster,player){
-    if (monster.hp - 25 > 0) {
-        monster.hp = monster.hp - 25
+    if (monster.hp - 20 > 0) {
+        monster.hp = monster.hp - 20
     } else {
             monster.hp = 0
         }}},
 {"id": 4,
     "name": "Cleansing Water",
     "damage": 0,
-    "cost": 50,
+    "cost": 60,
     "owned": false,
-    "description": "Uses healing magic to restore all of your HP (once per combat)",
+    "description": "Interrupt. Uses healing magic to restore all of your HP (once per combat)",
     "function": function(monster,player){
     player.hp = 50 + monster.damage}},
 {"id": 5,
     "name": "Poison Cloud",
     "damage": 0,
-    "cost": 60,
+    "cost": 70,
     "owned": false,
     "description": "Engulfs the foe in a poison cloud which does 15 damage for the next 4 turns",
     "function": function(monster,player){
@@ -69,29 +69,18 @@ const spells = [{"id": 0,
 {"id": 6,
     "name": "Weakness",
     "damage": 0,
-    "cost": 60,
+    "cost": 45,
     "owned": false,
     "description": "Weakens the foe, halving its damage for the next two turns",
     "function": function(monster,player){
-        monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Poison Cloud")
+        monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Weakness")
         monster.statusEffects.push(["Weakness", 3])
         console.log(monster)
     }},
     {"id": 7,
-    "name": "Sharpened Senses",
-    "damage": 0,
-    "cost": 60,
-    "owned": false,
-    "description": "Strengthens your next two attacks, doubling the damage of your spells",
-    "function": function(monster,player){
-        monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Sharpened Senses")
-        monster.statusEffects.push(["Sharpened Senses", 3])
-        console.log(monster)
-    }},
-    {"id": 8,
     "name": "Blood Siphon",
     "damage": 16,
-    "cost": 60,
+    "cost": 55,
     "owned": false,
     "description": "Siphons energy from your foe, healing you for half of your damage dealt",
     "function": function(monster,player){
@@ -100,7 +89,36 @@ const spells = [{"id": 0,
             player.hp = player.hp + 8
         } else {
                 monster.hp = 0
-            }}}
+            }}},
+    {"id": 8,
+    "name": "Mana Wall",
+    "damage": 0,
+    "cost": 40,
+    "owned": false,
+    "description": "Interrupt. Creates a wall of mana around you, making you invulnerable for the next two turns (once per combat). Upon the end of the effect, monster attack triples.",
+    "function": function(monster,player){
+        player.hp = player.hp + monster.damage
+        monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Mana Wall")
+        monster.statusEffects.push(["Mana Wall", 3])
+        console.log(monster)}},
+    {"id": 9,
+    "name": "Avarice",
+    "damage": 0,
+    "cost": 50,
+    "owned": false,
+    "description": "Doubles the amount of gold in the monster's possession. Once per combat",
+    "function": function(monster,player){
+        monster.gold = monster.gold*2
+        console.log(monster)}},
+    {"id": 10,
+    "name": "Essence of Victory",
+    "damage": 0,
+    "cost": 300,
+    "owned": false,
+    "description": "The final spell in the shop - purchasing this makes you a master wizard and wins the game",
+    "function": function(monster,player){
+        console.log("Game won")
+    }}
 ];
 
 export default spells;
