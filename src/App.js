@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route, Outlet, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Outlet, Link, HashRouter } from "react-router-dom";
 import Landing from './components/Landing';
 import spells from './data/spells';
 import Market from './routes/Market';
@@ -78,14 +78,14 @@ function App() {
 
 
   return (
-    <BrowserRouter>
+    <HashRouter basename="Rae-Ada-Capstone">
     <Routes>
-    <Route path="" element={<Landing
-    playerState = {playerState}
-    portraitIndex = {portraitIndex}
-    setPortraitIndex = {setPortraitIndex}
-    nameInput = {nameInput}
-    setNameInput = {setNameInput} />} />
+    <Route path="/" element={<Landing
+      playerState = {playerState}
+      portraitIndex = {portraitIndex}
+      setPortraitIndex = {setPortraitIndex}
+      nameInput = {nameInput}
+      setNameInput = {setNameInput} />} />
     <Route path="market" element={<Market
     portraitIndex = {portraitIndex}
     player = {playerState}
@@ -118,7 +118,7 @@ function App() {
     setPlayerGold = {setPlayerGold}
     resetSpells = {resetSpells} />} />
     </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
