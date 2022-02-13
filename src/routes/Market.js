@@ -14,11 +14,13 @@ const Market = (props) => {
 
     const winCheck = (playerInventory) => {
         for (let spell of playerInventory) {
-            if (spell.name === "Essence of Victory")
+            console.log(spell.name)
+            if (spell.name === "Essence of Victory") {
             console.log("Winner")
             setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
         }
     }
+}
 
     const buyButton = <button className = "buttons"
     onClick={(e) => {
