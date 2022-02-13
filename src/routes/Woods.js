@@ -31,16 +31,20 @@ const Woods = (props) => {
 
     const createMonster = (player, multiplier) => {
         let totalCost = 0
+        let defaultGold = 10
         for (let spell of player.spells.playerInv) {
                 totalCost += spell.cost
             };
             if (totalCost*multiplier < 30) {
                 totalCost = 30
             };
+            if (props.turnCount === 1) {
+                defaultGold = 30
+            };
         return ({name: monsterNameList[getRndInteger(0,5)],
         hp: Math.round(getRndInteger(30*multiplier,(totalCost)*multiplier)),
         damage: Math.round(getRndInteger(15*multiplier,(50/3)*multiplier)), 
-        gold: getRndInteger(5,40),
+        gold: getRndInteger(defaultGold,40),
         statusEffects: []
     })
 };
@@ -65,6 +69,7 @@ const Woods = (props) => {
         props.setMonster(null)
         props.setActionLog([])
         props.setSelectedSpell(null)
+        props.setMonsterMultiplier(1)
         navigate("/");
     }}>Restart</button>
 
