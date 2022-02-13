@@ -13,7 +13,9 @@ const Market = (props) => {
     const [marketInv, setMarketInv] = useState(props.allSpells.slice(1));
 
     const winCheck = (playerInventory) => {
-        if ("Essence of Victory" in playerInventory) {
+        for (let spell of playerInventory) {
+            if (spell.name === "Essence of Victory")
+            console.log("Winner")
             setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
         }
     }
@@ -27,6 +29,7 @@ const Market = (props) => {
         props.generatePlayerInv()
         setMarketInv(generateMarketInv())
         winCheck(props.playerInv)
+        console.log(props.playerInv)
     }}}>Purchase</button>
 
     const generateMarketInv = () => {
@@ -71,10 +74,10 @@ const Market = (props) => {
         if (spell) {
             return <SpellDisplay spell = {props.selectedSpell} />
         } else {
-            return <p>First, select a spell from the shop.<br />
-            Use the purchase button to buy the spell.
-            Monsters do not do damage on the turns you cast an interrupt spell.
-            Your current day count is {props.turnCount}</p>}
+            return <p>Select a spell from the shop.<br />
+            Use the purchase button to buy the spell.<br />
+            Monsters do not do damage on the turns you cast an interrupt spell.<br />
+            Your current day count is {props.turnCount}.</p>}
         }
 
     return (<React.Fragment><header><h1 className= "welcome">Welcome to the Market!</h1></header>

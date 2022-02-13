@@ -208,7 +208,7 @@ const Woods = (props) => {
         } else {
             return <p>Push the Keep Going button to find a monster. <br />
             Returning to the Market restores your HP to full.<br />
-            You cannot return to the market while in combat.s</p>
+            You cannot return to the market while in combat.</p>
         }
     }
 
