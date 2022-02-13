@@ -34,6 +34,9 @@ const Woods = (props) => {
         for (let spell of player.spells.playerInv) {
                 totalCost += spell.cost
             };
+            if (totalCost*multiplier < 30) {
+                totalCost = 30
+            };
         return ({name: monsterNameList[getRndInteger(0,5)],
         hp: Math.round(getRndInteger(30*multiplier,(totalCost)*multiplier)),
         damage: Math.round(getRndInteger(15*multiplier,(50/3)*multiplier)), 
