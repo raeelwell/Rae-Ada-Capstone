@@ -69,9 +69,9 @@ const spells = [{"id": 0,
 {"id": 6,
     "name": "Weakness",
     "damage": 0,
-    "cost": 45,
+    "cost": 30,
     "owned": false,
-    "description": "Weakens the foe, halving its damage for the next two turns",
+    "description": "Once per combat. Weakens the foe, halving its damage for the next two turns",
     "function": function(monster,player){
         monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Weakness")
         monster.statusEffects.push(["Weakness", 3])
@@ -122,16 +122,3 @@ const spells = [{"id": 0,
 ];
 
 export default spells;
-
-// change to spells.js, in each object have a spell function that executes, general damage function
-//each spell has monster,player input and monster,player output and modifies monster,player based on spell effects
-//spells do player half of the turn, apply effects during function
-
-//option 1; monster/player have effects attribute that is an empty list
-//list is filled as spells with (effect, #ofTurns)
-//combat goes current spell function > effect function > monster damage function
-//current spell function is the function attribute to spell in spells.js and executes simple damage/hp recovery/etc, and adds effects
-//check #ofTurns and if zero, remove from effects list, then decrement
-//effect function calls an object with spell names as keys and spell functions as values
-//ex: {poison cloud : customFunction(monster, player) //could add hp to player to seem like monster damage reduced
-

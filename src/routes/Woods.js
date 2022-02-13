@@ -18,11 +18,12 @@ const Woods = (props) => {
     const singleUseSpells = {
         "Cleansing Water":false,
         "Mana Wall":false,
-        "Avarice":false}
+        "Avarice":false,
+        "Weakness":false}
 
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const [singleUse, setSingleUse] = useState(singleUseSpells)
+    const [singleUse, setSingleUse] = useState(singleUseSpells);
 
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min) ) + min;
@@ -49,6 +50,8 @@ const Woods = (props) => {
         props.setSelectedSpell(null)
         navigate("/Market");
         props.setMonsterMultiplier(props.monsterMultiplier+0.1)
+        const newTurnCount = props.turnCount
+        props.setTurnCount(newTurnCount+1)
     }}>Back to the Market</button>
 
     const landingButton = <button className = 'landing-button'
@@ -76,6 +79,7 @@ const Woods = (props) => {
             }
         }
         monster.statusEffects = monster.statusEffects.filter(effect => effect[1] > 0)
+        console.log(monster.statusEffects)
     }
 
     const monsterDamage = (monster,player) => {
@@ -96,6 +100,17 @@ const Woods = (props) => {
             return (false)
         }
     }
+
+    const monsterWeakness = (monster) => {
+        for (let effect of monster.statusEffects) {
+            if (effect[0] === "Weakness") {
+                if (effect[1] === 3){
+                monster.damage = monster.damage/2
+        } if (effect[1] === 1){
+            monster.damage = monster.damage*2
+        }}
+    }
+}
 
     const generateAction = (monster, selectedSpell, player) => {
         const newMonster = {...monster}
@@ -130,8 +145,8 @@ const Woods = (props) => {
         if (!monsterDeath(newMonster,newPlayer)) {
             monsterDamage(newMonster,newPlayer)
         };
-
-        props.setMonster(newMonster)
+        console.log(monster)
+        monsterWeakness(newMonster)
 
     return ([newMonster, newPlayer])
 };
@@ -193,7 +208,7 @@ const Woods = (props) => {
         } else {
             return <p>Push the Keep Going button to find a monster. <br />
             Returning to the Market restores your HP to full.<br />
-            You cannot return to the market while in combat.</p>
+            You cannot return to the market while in combat.s</p>
         }
     }
 

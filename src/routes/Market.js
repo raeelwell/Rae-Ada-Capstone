@@ -12,6 +12,12 @@ const Market = (props) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [marketInv, setMarketInv] = useState(props.allSpells.slice(1));
 
+    const winCheck = (playerInventory) => {
+        if ("Essence of Victory" in playerInventory) {
+            setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
+        }
+    }
+
     const buyButton = <button className = "buttons"
     onClick={(e) => {
         if (props.player.gold.playerGold < props.selectedSpell.cost) {
@@ -20,6 +26,7 @@ const Market = (props) => {
         props.buySpell(props.selectedSpell.id, props.player)
         props.generatePlayerInv()
         setMarketInv(generateMarketInv())
+        winCheck(props.playerInv)
     }}}>Purchase</button>
 
     const generateMarketInv = () => {
@@ -33,7 +40,6 @@ const Market = (props) => {
     };
 
     const checkSpellsInInventory = (player) => {
-        console.log(player.spells.playerInv)
         if (player.spells.playerInv.length  === 0) {
             console.log("error - no spells in inventory")
             setErrorMessage("It's too dangerous to go into the woods without a spell! You should purchase a spell first!")
@@ -67,7 +73,8 @@ const Market = (props) => {
         } else {
             return <p>First, select a spell from the shop.<br />
             Use the purchase button to buy the spell.
-            Interrupt spells are cast outside of combat</p>}
+            Monsters do not do damage on the turns you cast an interrupt spell.
+            Your current day count is {props.turnCount}</p>}
         }
 
     return (<React.Fragment><header><h1 className= "welcome">Welcome to the Market!</h1></header>

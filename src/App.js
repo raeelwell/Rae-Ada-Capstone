@@ -32,11 +32,11 @@ function App() {
   const [selectedSpell, setSelectedSpell] = useState(null);
   const [currentMonster, setMonster] = useState(null);
   const [playerState, setPlayerState] = useState(null);
-  const [playerGold, setPlayerGold] = useState(150);
+  const [playerGold, setPlayerGold] = useState(0);
   const [actionLogDisplay, setActionLog] = useState([])
   const [portraitIndex, setPortraitIndex] = useState(getRndInteger(0,48))
   const [monsterMultiplier, setMonsterMultiplier] = useState(1);
-  const [narrative, setNarrative] = useState('')
+  const [turnCount, setTurnCount] = useState(1)
 
   useEffect(() => setPlayerState({id: 0,
     name: {nameInput},
@@ -97,7 +97,8 @@ function App() {
       buySpell = {buySpell}
       generatePlayerInv = {generatePlayerInv}
       playerGold = {playerGold}
-      setPlayerGold = {setPlayerGold} />} />
+      setPlayerGold = {setPlayerGold}
+      turnCount = {turnCount} />} />
     <Route path="woods" element={<Woods
       monsterMultiplier = {monsterMultiplier}
       setMonsterMultiplier = {setMonsterMultiplier}
@@ -116,7 +117,9 @@ function App() {
       playerInv = {playerInv}
       setPlayerInv = {setPlayerInv}
       setPlayerGold = {setPlayerGold}
-      resetSpells = {resetSpells} />} />
+      resetSpells = {resetSpells}
+      turnCount = {turnCount}
+      setTurnCount = {setTurnCount} />} />
     </Routes>
     </BrowserRouter>
   );
