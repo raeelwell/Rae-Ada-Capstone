@@ -42,7 +42,7 @@ const Woods = (props) => {
                 defaultGold = 30
             };
         return ({name: monsterNameList[getRndInteger(0,5)],
-        hp: Math.round(getRndInteger(30*multiplier,(totalCost)*multiplier)),
+        hp: Math.round(getRndInteger(30*multiplier,(totalCost*0.6)*multiplier)),
         damage: Math.round(getRndInteger(15*multiplier,(50/3)*multiplier)), 
         gold: getRndInteger(defaultGold,40),
         statusEffects: []
@@ -70,6 +70,7 @@ const Woods = (props) => {
         props.setActionLog([])
         props.setSelectedSpell(null)
         props.setMonsterMultiplier(1)
+        props.setTurnCount(1)
         navigate("/");
     }}>Restart</button>
 

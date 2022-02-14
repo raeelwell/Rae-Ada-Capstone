@@ -52,9 +52,11 @@ const spells = [{"id": 0,
     "damage": 0,
     "cost": 60,
     "owned": false,
-    "description": "Interrupt. Uses healing magic to restore all of your HP (once per combat)",
+    "description": "Interrupt. Uses healing magic to restore 75% of your missing HP (once per combat)",
     "function": function(monster,player){
-    player.hp = 50 + monster.damage}},
+    let HpMultiplier = 50-player.hp
+    HpMultiplier = HpMultiplier*.75
+    player.hp = player.hp + HpMultiplier + monster.damage}},
 {"id": 5,
     "name": "Poison Cloud",
     "damage": 0,
@@ -71,22 +73,23 @@ const spells = [{"id": 0,
     "damage": 0,
     "cost": 30,
     "owned": false,
-    "description": "Once per combat. Weakens the foe, halving its damage for the next two turns",
+    "description": "Interrupt. Once per combat. Weakens the foe, halving its damage for the next two turns",
     "function": function(monster,player){
+        player.hp = player.hp + monster.damage
         monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Weakness")
         monster.statusEffects.push(["Weakness", 3])
         console.log(monster)
     }},
     {"id": 7,
     "name": "Blood Siphon",
-    "damage": 16,
+    "damage": 20,
     "cost": 55,
     "owned": false,
     "description": "Siphons energy from your foe, healing you for half of your damage dealt",
     "function": function(monster,player){
-        if (monster.hp - 16 > 0) {
-            monster.hp = monster.hp - 16
-            player.hp = player.hp + 8
+        if (monster.hp - 20 > 0) {
+            monster.hp = monster.hp - 20
+            player.hp = player.hp + 10
         } else {
                 monster.hp = 0
             }}},
