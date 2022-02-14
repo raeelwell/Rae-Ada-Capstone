@@ -34,7 +34,7 @@
     display: flex;
     justify-content: center;
     gap: 150px;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .inventory {
@@ -65,12 +65,24 @@
     gap: 50px;
 }
 
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin: auto;
+    background-image: url('../images/dirt.jpg');
+    width:fit-content;
+    height:fit-content;
+    padding: 1em;
+    font-size: 1.1em;
+}
+
 .selectedSpell {
     display: flex;
     justify-content: space-evenly;
     background-image: url('../images/dirt.jpg');
     width:260px;
-    height:400px;
+    height:300px;
     border-style: double;
     border-width: 10px;
     border-color: rgb(70, 50, 13);

@@ -14,7 +14,7 @@ const Monster = (props) => {
         }
     }
 
-    return (<React.Fragment><div><h1>{props.name}</h1>
+    return (<React.Fragment><div><b><center>{props.name}</center></b>
     <p>HP: {props.hp}</p>
     <p>Attack Strength: {props.damage}</p></div>
     {ifStatus(props.statusEffects)}

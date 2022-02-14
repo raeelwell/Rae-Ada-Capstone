@@ -12,10 +12,11 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin:auto;
     gap: 10px;
     background-image: url('../images/dirt.jpg');
-    width:fit-content;
-    height:fit-content;
+    width:220px;
+    height:auto;
     border-style: double;
     border-width: 10px;
     border-color: rgb(70, 50, 13);
@@ -23,37 +24,51 @@ body {
     font-size: 1.7em;
 }
 
-.woodsColumn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-self: center;
-    margin:auto;
-}
-
-.buttons {
+.woodsButtons {
     display: flex;
     justify-content: center;
     gap: 100px;
     margin: auto;
-    background-image: url('../images/dirt.jpg');
-    width:fit-content;
+    width:220px;
     height:fit-content;
     padding: 1em;
     font-size: 1.1em;
 }
 
-/* .buttons {
+.buttonBlock {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 100px;
+    gap: 10px;
+    margin: auto;
+    background-image: url('../images/dirt.jpg');
     width:fit-content;
     height:fit-content;
     border-style: double;
     border-width: 10px;
     border-color: rgb(70, 50, 13);
     padding: 1em;
-} */
+}
+
+.secondColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    gap: 10px;
+}
+
+.thirdColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.twoColumns {
+    display: flex;
+    flex-direction: row;
+    flex-basis: 100%;
+    flex: 2;
+}
 
 .errorMessage {
     display: flex;
@@ -61,8 +76,21 @@ body {
     font-size: 1.7em;
 }
 
-.monster, .action {
-    justify-content: center;
+.action {
+    justify-content: left;
+    font-size: 1.7em;
+    background-image: url('../images/dirt.jpg');
+    width:fit-content;
+    height:fit-content;
+    padding: 1em;
+    border-style: double;
+    border-width: 10px;
+    border-color: rgb(70, 50, 13);
+    margin: auto;
+}
+
+.monster {
+    align-items: flex-start;
     font-size: 1.7em;
     background-image: url('../images/dirt.jpg');
     width:fit-content;
