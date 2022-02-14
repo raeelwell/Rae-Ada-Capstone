@@ -131,7 +131,7 @@ const Woods = (props) => {
         for (let effect of monster.statusEffects) {
             if (effect[0] === "Weakness") {
                 if (effect[1] === 3){
-                monster.damage = monster.damage/2
+                Math.round(monster.damage = monster.damage/2)
         } if (effect[1] === 1){
             monster.damage = monster.damage*2
         }}
@@ -204,10 +204,10 @@ const Woods = (props) => {
                 );
             } else {
                 return (<React.Fragment><div className="monster">Congratulations, you killed the monster! 
-                <br />The monster has dropped {props.currentMonster.gold} gold.
-                {props.goButton}<br /><br />
-                You can return to the Market to recover your HP <br />
-                and buy more spellbooks, or if you are feeling adventurous, <br />
+                The monster has dropped <b>{props.currentMonster.gold} gold</b>.
+                <br /><br />
+                You can return to the Market to recover your HP 
+                and buy more spellbooks, or if you are feeling adventurous, 
                 you can keep going for another monster encounter!
                 </div>
                 <div className="buttonBlock">{marketButton}
@@ -229,8 +229,8 @@ const Woods = (props) => {
         if (spell) {
             return <SpellDisplay spell = {props.selectedSpell} />
         } else {
-            return <p>Push the Keep Going button to find a monster. <br />
-            Returning to the Market restores your HP to full.<br />
+            return <p>Push the Keep Going button to find a monster. <br /><br />
+            Returning to the Market restores your HP to full.<br /><br />
             You cannot return to the market while in combat.</p>
         }
     }
@@ -253,10 +253,9 @@ const Woods = (props) => {
                 <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
                 </div>
             <div className="secondColumn">
-                <div className="woodsInventory">
-                <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
-                </div>
-                { props.currentMonster? <div className="buttonBlock"> {castButton}</div>: <div className="buttonBlock">{marketButton}
+                <div className="woodsInventory"><center>Your Bookbag</center><br />{playerInventory()}</div>
+                { props.currentMonster? props.currentMonster.hp !== 0? 
+                    <div className="buttonBlock"> {castButton}</div>: <div></div>: <div className="buttonBlock">{marketButton}
                 {goButton}</div>}
                 <div className="twoColumns">
                     { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}

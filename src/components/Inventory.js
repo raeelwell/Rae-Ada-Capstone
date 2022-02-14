@@ -25,8 +25,7 @@ const Inventory = (props) => {
         } return null
         };
 
-    return (<React.Fragment><p className="title"></p>
-    <select className="spellList"
+    return (<React.Fragment><select className="spellList"
     size="5" 
     onClick={(e) => {
         props.setSelectedSpell(lookUpSpell(e.target.value));

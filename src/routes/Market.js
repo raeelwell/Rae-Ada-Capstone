@@ -22,7 +22,7 @@ const Market = (props) => {
     }
 }
 
-    const buyButton = <button className = "buttons"
+    const buyButton = <button className = "woodsButtons"
     onClick={(e) => {
         if (props.player.gold.playerGold < props.selectedSpell.cost) {
             setErrorMessage("You cannot afford that spell!")
@@ -55,7 +55,7 @@ const Market = (props) => {
         }
     }
 
-    const woodsButton = <button className = "buttons"
+    const woodsButton = <button className = "woodsButtons"
     onClick={() => {
         checkSpellsInInventory(props.player)
     }}>Go Into The Woods</button>
@@ -98,7 +98,7 @@ const Market = (props) => {
                 </div>
             <div className="buyButton">{buyButton}</div>
             </div>
-            <div className="woodsButton">{woodsButton} </div></div>
+            <div className="buttonBlock">{woodsButton} </div></div>
         </div>
         { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}
         </div>

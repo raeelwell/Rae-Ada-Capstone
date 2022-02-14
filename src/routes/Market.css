@@ -65,6 +65,10 @@
     gap: 50px;
 }
 
+.spellList {
+    opacity: 75%
+}
+
 .buttons {
     display: flex;
     justify-content: center;
