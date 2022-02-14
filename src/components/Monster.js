@@ -2,15 +2,15 @@ import react from 'react';
 import React from 'react';
 
 const Monster = (props) => {
+    console.log(props.statusEffects)
 
     const ifStatus = (statusEffects) => {
         let effectsList = [];
-        if (statusEffects.length > 1) {
-            for (let statusEffect in statusEffects) {
+        if (props.statusEffects.length > 0) {
+            for (let statusEffect of props.statusEffects) {
                 effectsList.push(statusEffect[0])
-                return;
             }
-            return (<div><p>Status Effects:</p>{ifStatus(props.statusEffects)}</div>)
+            return (<div><p>Status Effects:</p>{`${effectsList} `}</div>)
         }
     }
 

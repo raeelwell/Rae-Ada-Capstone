@@ -11,6 +11,12 @@
     padding: 1em;
 }
 
+.page {
+    display:flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
 .stats {
     justify-content: center;
     display: flex;
@@ -26,7 +32,8 @@
 
 .oneLine {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 150px;
     align-items: center;
 }
 
@@ -52,11 +59,17 @@
     font-size: 1.7em;
 }
 
+.oneColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
 .selectedSpell {
     display: flex;
     justify-content: space-evenly;
     background-image: url('../images/dirt.jpg');
-    width:fit-content;
+    width:260px;
     height:fit-content;
     border-style: double;
     border-width: 10px;

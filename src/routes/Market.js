@@ -78,20 +78,20 @@ const Market = (props) => {
         } else {
             return <p>Select a spell from the shop.<br />
             Use the purchase button to buy the spell.<br />
-            Monsters do not do damage on the turns you cast an interrupt spell.<br />
             Your current day count is {props.turnCount}.</p>}
         }
 
-    return (<React.Fragment><header><h1 className= "welcome">Welcome to the Market!</h1></header>
-    <main>
+    return (<React.Fragment><main><div className="page"><h1 className= "welcome">Welcome to the Market!</h1>
         <div className="oneLine">
+        <div className ="statsBlock">
             <Portraits
             hideArrows = {true}
             portraitIndex = {props.portraitIndex} />
-            <div className ="statsBlock"><div className="stats"><Stats
-            player = {props.player} /></div>
+            <Stats
+            player = {props.player} />
             <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
             </div>
+            <div className="oneColumn">
             <div className="inventory">
                 <div className="bothInventories">
                 <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
@@ -99,9 +99,10 @@ const Market = (props) => {
                 </div>
             <div className="buyButton">{buyButton}</div>
             </div>
+            <div className="woodsButton">{woodsButton} </div></div>
         </div>
         { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}
-        <div className="woodsButton">{woodsButton} </div>
+        </div>
     </main>
     </React.Fragment>)
 }

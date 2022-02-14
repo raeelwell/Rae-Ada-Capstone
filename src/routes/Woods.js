@@ -41,8 +41,12 @@ const Woods = (props) => {
             if (props.turnCount === 1) {
                 defaultGold = 30
             };
+        let HpCap = (totalCost*0.6)*multiplier
+        if ((totalCost*0.6)*multiplier < 220) {
+            HpCap = 220
+        };
         return ({name: monsterNameList[getRndInteger(0,5)],
-        hp: Math.round(getRndInteger(30*multiplier,(totalCost*0.6)*multiplier)),
+        hp: Math.round(getRndInteger(30*multiplier,HpCap)),
         damage: Math.round(getRndInteger(15*multiplier,(50/3)*multiplier)), 
         gold: getRndInteger(defaultGold,40),
         statusEffects: []

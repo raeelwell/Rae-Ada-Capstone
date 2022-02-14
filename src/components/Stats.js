@@ -2,7 +2,8 @@ import React from 'react';
 import './Stats.css'
 
 const Stats = (props) => {
-    return <div className = 'Stats'>Name: {props.player.name.nameInput} | HP: {props.player.hp} | Gold: {props.player.gold.playerGold}</div>
+    return <div className = 'Stats'><b>Name:</b> {props.player.name.nameInput}<br /> 
+    <b>HP:</b> {props.player.hp} | <b>Gold:</b> {props.player.gold.playerGold}</div>
 }
 
 export default Stats;
