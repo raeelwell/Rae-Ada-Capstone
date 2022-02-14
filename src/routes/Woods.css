@@ -8,16 +8,52 @@ body {
     font-family:Arial, Helvetica, sans-serif
 }
 
-.inventory {
+.woodsInventory {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    gap: 10px;
+    background-image: url('../images/dirt.jpg');
+    width:fit-content;
+    height:fit-content;
+    border-style: double;
+    border-width: 10px;
+    border-color: rgb(70, 50, 13);
+    padding: 1em;
+    font-size: 1.7em;
 }
 
+.woodsColumn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    margin:auto;
+}
 
 .buttons {
     display: flex;
     justify-content: center;
     gap: 100px;
+    margin: auto;
+    background-image: url('../images/dirt.jpg');
+    width:fit-content;
+    height:fit-content;
+    padding: 1em;
+    font-size: 1.1em;
 }
+
+/* .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    width:fit-content;
+    height:fit-content;
+    border-style: double;
+    border-width: 10px;
+    border-color: rgb(70, 50, 13);
+    padding: 1em;
+} */
 
 .errorMessage {
     display: flex;

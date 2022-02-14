@@ -70,24 +70,13 @@
     justify-content: space-evenly;
     background-image: url('../images/dirt.jpg');
     width:260px;
-    height:fit-content;
+    height:400px;
     border-style: double;
     border-width: 10px;
     border-color: rgb(70, 50, 13);
     padding: 1em;
 }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 100px;
-    margin: auto;
-    background-image: url('../images/dirt.jpg');
-    width:fit-content;
-    height:fit-content;
-    padding: 1em;
-    font-size: 1.1em;
-}
 
 .errorMessage {
     justify-content: center;

@@ -42,7 +42,7 @@ const Woods = (props) => {
                 defaultGold = 30
             };
         let HpCap = (totalCost*0.6)*multiplier
-        if ((totalCost*0.6)*multiplier < 220) {
+        if ((totalCost*0.6)*multiplier > 220) {
             HpCap = 220
         };
         return ({name: monsterNameList[getRndInteger(0,5)],
@@ -235,15 +235,19 @@ const Woods = (props) => {
     return (<react.Fragment><header><h1 className= "welcome">By The Moonlight, you wander into the woods</h1></header>
     <div>
             <div className="oneLine">
+            <div className="statsBlock">
                 <Portraits
                 hideArrows = {true}
                 portraitIndex = {props.portraitIndex} />
-                <div className ="statsBlock"><div className="stats"><Stats
-                player = {props.player} /></div>
+                <Stats player = {props.player} />
                 <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
                 </div>
-                <div className="inventory"><div className="bothInventories">
-                <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div></div>
+            <div classname="woodsColumn">
+            <div className="woodsInventory">
+                <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+                </div>
+                { monster? <div className="buttons"><div className="marketButton">{marketButton}</div>
+                <div className="goButton">{goButton}</div></div>: <br />}
                 </div>
             </div>
 

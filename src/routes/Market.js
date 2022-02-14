@@ -77,7 +77,7 @@ const Market = (props) => {
             return <SpellDisplay spell = {props.selectedSpell} />
         } else {
             return <p>Select a spell from the shop.<br />
-            Use the purchase button to buy the spell.<br />
+            Use the purchase button to buy the spell.<br /><br />
             Your current day count is {props.turnCount}.</p>}
         }
 
@@ -87,8 +87,7 @@ const Market = (props) => {
             <Portraits
             hideArrows = {true}
             portraitIndex = {props.portraitIndex} />
-            <Stats
-            player = {props.player} />
+            <Stats player = {props.player} />
             <div className="selectedSpell">{ifSpellSelected(props.selectedSpell)}</div>
             </div>
             <div className="oneColumn">
