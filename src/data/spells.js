@@ -32,6 +32,8 @@ const spells = [{"id": 0,
     "function": function(monster,player){
     if (monster.hp - 30 > 0) {
         monster.hp = monster.hp - 30
+        monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Lightning")
+            monster.statusEffects.push(["Lightning", 4])
     } else {
             monster.hp = 0
         }}},
@@ -55,18 +57,17 @@ const spells = [{"id": 0,
     "description": "Interrupt. Uses healing magic to restore 75% of your missing HP (once per combat)",
     "function": function(monster,player){
     let HpMultiplier = 50-player.hp
-    HpMultiplier = HpMultiplier*.75
+    HpMultiplier = Math.round(HpMultiplier*.75)
     player.hp = player.hp + HpMultiplier + monster.damage}},
 {"id": 5,
     "name": "Poison Cloud",
     "damage": 0,
-    "cost": 45,
+    "cost": 40,
     "owned": false,
     "description": "Engulfs the foe in a poison cloud which does 15 damage for the next 4 turns",
     "function": function(monster,player){
         monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Poison Cloud")
         monster.statusEffects.push(["Poison Cloud", 4])
-        console.log(monster)
     }},
 {"id": 6,
     "name": "Weakness",
@@ -78,12 +79,11 @@ const spells = [{"id": 0,
         player.hp = player.hp + monster.damage
         monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Weakness")
         monster.statusEffects.push(["Weakness", 3])
-        console.log(monster)
     }},
     {"id": 7,
     "name": "Blood Siphon",
     "damage": 20,
-    "cost": 55,
+    "cost": 45,
     "owned": false,
     "description": "Siphons energy from your foe, healing you for half of your damage dealt",
     "function": function(monster,player){
@@ -102,8 +102,7 @@ const spells = [{"id": 0,
     "function": function(monster,player){
         player.hp = player.hp + monster.damage
         monster.statusEffects = monster.statusEffects.filter(effect => effect[0] !== "Mana Wall")
-        monster.statusEffects.push(["Mana Wall", 3])
-        console.log(monster)}},
+        monster.statusEffects.push(["Mana Wall", 3])}},
     {"id": 9,
     "name": "Avarice",
     "damage": 0,
@@ -111,8 +110,7 @@ const spells = [{"id": 0,
     "owned": false,
     "description": "Doubles the amount of gold in the monster's possession. Once per combat",
     "function": function(monster,player){
-        monster.gold = monster.gold*2
-        console.log(monster)}},
+        monster.gold = monster.gold*2}},
     {"id": 10,
     "name": "Essence of Victory",
     "damage": 0,

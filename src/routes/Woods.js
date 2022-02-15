@@ -89,10 +89,10 @@ const Woods = (props) => {
         onClick={(e) => {
         const actionResult = generateAction(props.currentMonster, props.selectedSpell, props.player)
             props.setActionLog(<ActionLog 
-            goButton = {props.goButton}
-            currentMonster = {actionResult[0]}
-            selectedSpell = {props.selectedSpell}
-            player = {actionResult[1]}/>)
+                goButton = {props.goButton}
+                currentMonster = {actionResult[0]}
+                selectedSpell = {props.selectedSpell}
+                player = {actionResult[1]}/>)
             props.setPlayerState(actionResult[1])
             props.setMonster(actionResult[0])
     }}>Cast Spell</button>
@@ -131,7 +131,7 @@ const Woods = (props) => {
         for (let effect of monster.statusEffects) {
             if (effect[0] === "Weakness") {
                 if (effect[1] === 3){
-                Math.round(monster.damage = monster.damage/2)
+                monster.damage = Math.round(monster.damage/2)
         } if (effect[1] === 1){
             monster.damage = monster.damage*2
         }}
@@ -171,8 +171,12 @@ const Woods = (props) => {
         if (!monsterDeath(newMonster,newPlayer)) {
             monsterDamage(newMonster,newPlayer)
         };
-        console.log(monster)
+
         monsterWeakness(newMonster)
+
+        if (newPlayer.hp > 50) {
+            newPlayer.hp = newPlayer.hp-newMonster.damage
+        }
 
     return ([newMonster, newPlayer])
 };
@@ -230,7 +234,8 @@ const Woods = (props) => {
             return <SpellDisplay spell = {props.selectedSpell} />
         } else {
             return <p>Push the Keep Going button to find a monster. <br /><br />
-            Returning to the Market restores your HP to full.<br /><br />
+            Returning to the Market restores your HP to full.<br />
+            It also makes monsters slightly stronger.<br /><br />
             You cannot return to the market while in combat.</p>
         }
     }

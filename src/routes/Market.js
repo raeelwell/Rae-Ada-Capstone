@@ -26,21 +26,27 @@ const Market = (props) => {
     onClick={(e) => {
         if (props.player.gold.playerGold < props.selectedSpell.cost) {
             setErrorMessage("You cannot afford that spell!")
-        } else {
+            return;
+        }
+        if (props.selectedSpell.owned === true) {
+            setErrorMessage("You already own that spell!")
+            return;
+        }
         props.buySpell(props.selectedSpell.id, props.player)
         props.generatePlayerInv()
         setMarketInv(generateMarketInv())
         winCheck(props.playerInv)
         console.log(props.playerInv)
-    }}}>Purchase</button>
+        console.log(props.allSpells)
+        console.log(props.selectedSpell.owned)
+    }}>Purchase</button>
 
     const generateMarketInv = () => {
         let spellList = []
         for (let spell of marketInv) {
             if (spell.owned === false) {
             spellList.push(spell)
-        }
-        }
+        }}
         return spellList;
     };
 
@@ -98,9 +104,10 @@ const Market = (props) => {
                 </div>
             <div className="buyButton">{buyButton}</div>
             </div>
-            <div className="buttonBlock">{woodsButton} </div></div>
+            <div className="buttonBlock">{woodsButton} </div>
+            { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}</div>
         </div>
-        { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}
+        
         </div>
     </main>
     </React.Fragment>)
