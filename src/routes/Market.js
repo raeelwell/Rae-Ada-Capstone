@@ -11,16 +11,29 @@ const Market = (props) => {
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
     const [marketInv, setMarketInv] = useState(props.allSpells.slice(1));
+    const [winCheck, setWinCheck] = useState(false)
 
-    const winCheck = (playerInventory) => {
+    const wwinCheck = (playerInventory) => {
         for (let spell of playerInventory) {
-            console.log(spell.name)
             if (spell.name === "Essence of Victory") {
             console.log("Winner")
             setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
         }
     }
 }
+
+    const landingButton = <button className = 'woodsButtons'
+    onClick={() => {
+        props.setPlayerGold(0)
+        props.resetSpells()
+        props.setPlayerInv([props.allSpells[0]])
+        props.setMonster(null)
+        props.setActionLog([])
+        props.setSelectedSpell(null)
+        props.setMonsterMultiplier(1)
+        props.setTurnCount(1)
+        navigate("/");
+    }}>Restart</button>
 
     const buyButton = <button className = "woodsButtons"
     onClick={(e) => {
@@ -35,7 +48,12 @@ const Market = (props) => {
         props.buySpell(props.selectedSpell.id, props.player)
         props.generatePlayerInv()
         setMarketInv(generateMarketInv())
-        winCheck(props.playerInv)
+
+        if (props.selectedSpell.name==="Essence of Victory"){
+            setWinCheck(true)
+            setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
+        }
+        // winCheck(props.playerInv)
         console.log(props.playerInv)
         console.log(props.allSpells)
         console.log(props.selectedSpell.owned)
@@ -104,7 +122,8 @@ const Market = (props) => {
                 </div>
             <div className="buyButton">{buyButton}</div>
             </div>
-            <div className="buttonBlock">{woodsButton} </div>
+            <div className="buttonBlock">{woodsButton}
+            { winCheck ? <div>{landingButton}</div> : <div></div>} </div>
             { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}</div>
         </div>
         
