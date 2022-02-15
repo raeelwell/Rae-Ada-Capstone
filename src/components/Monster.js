@@ -14,15 +14,18 @@ const Monster = (props) => {
                 } else {
                     turnsRemaining = [statusEffect[1]]
                 };
-                if (turnsRemaining === 0) {
-                    return (<div></div>)
+                if (turnsRemaining > 0) {
+                    effectsList.push(` ${statusEffect[0]}`)
+                    effectsList.push(` ${turnsRemaining} turns`)
+                    ;
                 };
-                effectsList.push(` ${statusEffect[0]}`)
-                effectsList.push(` ${turnsRemaining} turns`)
-            }
+            };
+            if (effectsList.length < 1) {
+                return (<div></div>)
+            };
             return (<div><p><b>Status Effects:</b> {`${effectsList} `}</p></div>)
-        }
-    }
+        };
+    };
 
     return (<React.Fragment><div><b><center>{props.name}</center></b>
     <p><b>HP:</b> {props.hp}</p>

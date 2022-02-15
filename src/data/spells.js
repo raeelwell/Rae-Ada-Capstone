@@ -28,7 +28,7 @@ const spells = [{"id": 0,
     "damage": 30,
     "cost": 65,
     "owned": false,
-    "description": "Casts a lightning spell for 30 points of damage. Lingering static electricity causes the foe to take 10 per turn for 4 turns.",
+    "description": "Casts a lightning spell for 30 points of damage. Lingering static electricity causes the foe to take 10 damage per turn for 4 turns.",
     "function": function(monster,player){
     if (monster.hp - 30 > 0) {
         monster.hp = monster.hp - 30

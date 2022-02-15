@@ -37,7 +37,7 @@ const ActionLog = (props) => {
                     <center><b>Your HP is now {props.player.hp}.</b></center></div>)
                 };
             };
-            if (props.selectedSpell.name !== "Cleansing Water" && props.selectedSpell.name !== "Mana Ward"){
+            if (props.selectedSpell.name !== "Cleansing Water" && props.selectedSpell.name !== "Mana Wall"){
                 return (<div className="monsterAttack">The monster strikes back at you, doing {props.currentMonster.damage} damage!<br /><br />
                 <center><b>Your HP is now {props.player.hp}.</b></center></div>)
             } else {

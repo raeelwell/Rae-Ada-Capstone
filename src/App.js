@@ -70,9 +70,10 @@ function App() {
   const resetSpells = () => {
     let spellList = []
     for (let spell of allSpells) {
+      if (spell.name !== "Throw Rock") {
       spell.owned = false
       spellList.push(spell)
-      }
+    }}
     setSpells(spellList)
   }
 

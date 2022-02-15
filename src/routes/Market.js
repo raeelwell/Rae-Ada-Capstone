@@ -8,19 +8,20 @@ import SpellDisplay from '../components/SpellDisplay';
 import Portraits from '../components/Portraits';
 
 const Market = (props) => {
+
+    const generateMarketInv = () => {
+        let spellList = []
+        for (let spell of props.allSpells) {
+            if (spell.owned === false) {
+            spellList.push(spell)
+        }}
+        return spellList;
+    };
+
     let navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
-    const [marketInv, setMarketInv] = useState(props.allSpells.slice(1));
+    const [marketInv, setMarketInv] = useState(generateMarketInv());
     const [winCheck, setWinCheck] = useState(false)
-
-    const wwinCheck = (playerInventory) => {
-        for (let spell of playerInventory) {
-            if (spell.name === "Essence of Victory") {
-            console.log("Winner")
-            setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
-        }
-    }
-}
 
     const landingButton = <button className = 'woodsButtons'
     onClick={() => {
@@ -53,24 +54,19 @@ const Market = (props) => {
             setWinCheck(true)
             setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
         }
-        // winCheck(props.playerInv)
-        console.log(props.playerInv)
-        console.log(props.allSpells)
-        console.log(props.selectedSpell.owned)
     }}>Purchase</button>
 
-    const generateMarketInv = () => {
-        let spellList = []
-        for (let spell of marketInv) {
-            if (spell.owned === false) {
-            spellList.push(spell)
-        }}
-        return spellList;
-    };
+    // const generateMarketInv = () => {
+    //     let spellList = []
+    //     for (let spell of marketInv) {
+    //         if (spell.owned === false) {
+    //         spellList.push(spell)
+    //     }}
+    //     return spellList;
+    // };
 
     const checkSpellsInInventory = (player) => {
         if (player.spells.playerInv.length  === 0) {
-            console.log("error - no spells in inventory")
             setErrorMessage("It's too dangerous to go into the woods without a spell! You should purchase a spell first!")
         } else {
             props.setSelectedSpell(null)
@@ -117,8 +113,8 @@ const Market = (props) => {
             <div className="oneColumn">
             <div className="inventory">
                 <div className="bothInventories">
-                <div className="shopInventory"><p>Shop Books</p>{shopInventory()}</div>
-                <div className="playerInventory"><p>Your Bookbag</p>{playerInventory()}</div>
+                <div className="shopInventory"><p><b>Shop Books</b></p>{shopInventory()}</div>
+                <div className="playerInventory"><p><b>Your Bookbag</b></p>{playerInventory()}</div>
                 </div>
             <div className="buyButton">{buyButton}</div>
             </div>

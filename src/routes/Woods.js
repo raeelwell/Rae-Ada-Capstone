@@ -186,7 +186,7 @@ const Woods = (props) => {
             return (<React.Fragment>
                 <div className="monster">
                     The monster has killed you. Game over.<br /><br />
-                    You tragically met your fate on day {props.turnCount} of your adventure.<br /><br />
+                    You tragically met your fate on <b>day {props.turnCount}</b> of your adventure.<br /><br />
                     To play again, press the Restart button.
                 </div><br />
                 <div className = "buttonBlock">{landingButton}</div>
@@ -263,8 +263,7 @@ const Woods = (props) => {
                     <div className="buttonBlock"> {castButton}</div>: <div></div>: <div className="buttonBlock">{marketButton}
                 {goButton}</div>}
                 <div className="twoColumns">
-                    { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}
-                    {ifActionLog(props.actionLogDisplay)} <br />
+                    { errorMessage? <div className="errorMessage">{errorMessage}</div>: <div className="actionLog">{ifActionLog(props.actionLogDisplay)}</div> }
                     </div>
                 </div>
             
