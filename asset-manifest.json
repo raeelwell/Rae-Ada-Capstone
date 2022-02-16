@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Rae-Ada-Capstone/static/css/main.97cc1c76.css",
-    "main.js": "/Rae-Ada-Capstone/static/js/main.c8d72716.js",
+    "main.css": "/Rae-Ada-Capstone/static/css/main.84e5fac5.css",
+    "main.js": "/Rae-Ada-Capstone/static/js/main.0f2a63ea.js",
     "static/media/forest-bg.jpeg": "/Rae-Ada-Capstone/static/media/forest-bg.83352b00e008178baf56.jpeg",
     "static/media/38.jpeg": "/Rae-Ada-Capstone/static/media/38.68f4a449c5799cd67205.jpeg",
     "static/media/25.jpeg": "/Rae-Ada-Capstone/static/media/25.846ba793faeeb61dffad.jpeg",
@@ -33,11 +33,11 @@
     "static/media/31.jpeg": "/Rae-Ada-Capstone/static/media/31.08e595c5041dafd1b2ba.jpeg",
     "static/media/19.jpeg": "/Rae-Ada-Capstone/static/media/19.e1956c4f4a27ee4e45bd.jpeg",
     "index.html": "/Rae-Ada-Capstone/index.html",
-    "main.97cc1c76.css.map": "/Rae-Ada-Capstone/static/css/main.97cc1c76.css.map",
-    "main.c8d72716.js.map": "/Rae-Ada-Capstone/static/js/main.c8d72716.js.map"
+    "main.84e5fac5.css.map": "/Rae-Ada-Capstone/static/css/main.84e5fac5.css.map",
+    "main.0f2a63ea.js.map": "/Rae-Ada-Capstone/static/js/main.0f2a63ea.js.map"
   },
   "entrypoints": [
-    "static/css/main.97cc1c76.css",
-    "static/js/main.c8d72716.js"
+    "static/css/main.84e5fac5.css",
+    "static/js/main.0f2a63ea.js"
   ]
 }
