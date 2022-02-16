@@ -36,7 +36,7 @@ By The Moonlight was my first large-scale solo coding project. When I began this
 
 While I'm sure that my self-teaching has left me with many areas that I can improve on, I am proud to have delivered a finished, working product by the deadline.
 
-If you have any questions or comments about By The Moonlight, I would love to hear them - you can contact me [@Raelet](https://twitter.com/Raelet) on twitter or email me at rae.elwell@gmail.com.
+If you have any questions or comments about By The Moonlight, I would love to hear them - you can contact me [@Raelet](https://twitter.com/Raelet) on twitter or through Github.
 
 ### Changelog
 
