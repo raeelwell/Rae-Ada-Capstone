@@ -30,7 +30,7 @@ function App() {
   const [selectedSpell, setSelectedSpell] = useState(null);
   const [currentMonster, setMonster] = useState(null);
   const [playerState, setPlayerState] = useState(null);
-  const [playerGold, setPlayerGold] = useState(300);
+  const [playerGold, setPlayerGold] = useState(0);
   const [actionLogDisplay, setActionLog] = useState([])
   const [portraitIndex, setPortraitIndex] = useState(getRndInteger(0,48))
   const [monsterMultiplier, setMonsterMultiplier] = useState(1);
