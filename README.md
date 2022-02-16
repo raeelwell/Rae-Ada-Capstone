@@ -27,6 +27,7 @@ The game also has 10 available spells to use in combat, each which feature uniqu
 * invulnerability (with a catch!)
 * doubling your gold gains 
 * self healing
+
 Experiment with different combinations of spells to see what works best!
 
 ## About This Project
