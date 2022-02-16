@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Landing.css'
-import { useParams, useNavigate } from "react-router-dom";
-import { useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Portraits from './Portraits'
 
 const Landing = (props) => {

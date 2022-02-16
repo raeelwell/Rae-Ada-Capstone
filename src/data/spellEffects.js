@@ -5,12 +5,6 @@ const spellEffects = {"Poison Cloud": function(monster,player,effect) {
     }
 },
 "Weakness": function(monster,player,effect) {
-//     if (effect[1] === 3) {
-//     monster.damage = monster.damage/2
-// }
-// if (effect[1] === 1) {
-//     monster.damage = monster.damage*2
-// }
 },
 "Mana Wall": function(monster,player,effect) {
     if (monster.hp !== 0) { 

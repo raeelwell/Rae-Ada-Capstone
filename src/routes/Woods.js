@@ -1,6 +1,6 @@
 import './Woods.css';
-import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Monster from '../components/Monster'
 import Inventory from '../components/Inventory'
 import ActionLog from '../components/ActionLog'
@@ -8,8 +8,6 @@ import Stats from '../components/Stats'
 import SpellDisplay from '../components/SpellDisplay';
 import monsterNameList from '../data/monsters.json'
 import Portraits from '../components/Portraits';
-import Landing from '../components/Landing';
-import react from 'react';
 import spells from '../data/spells';
 import spellEffects from '../data/spellEffects'
 
@@ -105,7 +103,6 @@ const Woods = (props) => {
             }
         }
         monster.statusEffects = monster.statusEffects.filter(effect => effect[1] > 0)
-        console.log(monster.statusEffects)
     }
 
     const monsterDamage = (monster,player) => {

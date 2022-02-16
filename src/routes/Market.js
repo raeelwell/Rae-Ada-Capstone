@@ -1,9 +1,8 @@
 import './Market.css';
-import { useParams, useNavigate } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
 import Inventory from '../components/Inventory'
 import Stats from '../components/Stats'
-import spells from '../data/spells'
 import SpellDisplay from '../components/SpellDisplay';
 import Portraits from '../components/Portraits';
 
@@ -52,18 +51,9 @@ const Market = (props) => {
 
         if (props.selectedSpell.name==="Essence of Victory"){
             setWinCheck(true)
-            setErrorMessage(`Congratulations, you have won the game! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
+            setErrorMessage(`🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉 Congratulations, you are now a master wizard! Your day count is ${props.turnCount}. Play again and try to get a lower day count!`)
         }
     }}>Purchase</button>
-
-    // const generateMarketInv = () => {
-    //     let spellList = []
-    //     for (let spell of marketInv) {
-    //         if (spell.owned === false) {
-    //         spellList.push(spell)
-    //     }}
-    //     return spellList;
-    // };
 
     const checkSpellsInInventory = (player) => {
         if (player.spells.playerInv.length  === 0) {
@@ -116,16 +106,15 @@ const Market = (props) => {
                 <div className="shopInventory"><p><b>Shop Books</b></p>{shopInventory()}</div>
                 <div className="playerInventory"><p><b>Your Bookbag</b></p>{playerInventory()}</div>
                 </div>
-            <div className="buyButton">{buyButton}</div>
-            </div>
-            <div className="buttonBlock">{woodsButton}
-            { winCheck ? <div>{landingButton}</div> : <div></div>} </div>
-            { errorMessage? <div className="errorMessage">{errorMessage}</div>: <br />}</div>
+            <div className="buyButton">{buyButton}</div></div>
+            { errorMessage? <div className="errorMessage">{errorMessage}</div>: <div></div>}
+            <div className="buttonBlock">
+            { winCheck ? <div>{landingButton}</div> : <div></div>}
+            {woodsButton}</div></div>
         </div>
-        
         </div>
     </main>
     </React.Fragment>)
-}
+};
 
 export default Market;

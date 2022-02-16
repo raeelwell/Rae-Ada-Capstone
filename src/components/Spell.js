@@ -1,5 +1,4 @@
 import React from 'react';
-import spells from '../data/spells'
 
 const Spell = (props) => { 
     

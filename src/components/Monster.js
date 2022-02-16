@@ -1,10 +1,7 @@
-import react from 'react';
 import React from 'react';
 
 const Monster = (props) => {
-    console.log(props.statusEffects)
-
-    const ifStatus = (statusEffects) => {
+        const ifStatus = (statusEffects) => {
         let effectsList = [];
         let turnsRemaining = 0;
         if (props.statusEffects.length > 0) {
@@ -32,6 +29,6 @@ const Monster = (props) => {
     <p><b>Attack Strength:</b> {props.damage}</p></div>
     {ifStatus(props.statusEffects)}
     </React.Fragment>)
-}
+};
 
 export default Monster;

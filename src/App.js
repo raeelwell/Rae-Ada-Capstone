@@ -1,12 +1,10 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route, Outlet, Link, HashRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from './components/Landing';
 import spells from './data/spells';
 import Market from './routes/Market';
 import Woods from './routes/Woods';
-import Spell from './components/Spell';
-import Inventory from './components/Inventory'
 
 const allSpells = []
 for (let spell of spells){
@@ -32,7 +30,7 @@ function App() {
   const [selectedSpell, setSelectedSpell] = useState(null);
   const [currentMonster, setMonster] = useState(null);
   const [playerState, setPlayerState] = useState(null);
-  const [playerGold, setPlayerGold] = useState(0);
+  const [playerGold, setPlayerGold] = useState(300);
   const [actionLogDisplay, setActionLog] = useState([])
   const [portraitIndex, setPortraitIndex] = useState(getRndInteger(0,48))
   const [monsterMultiplier, setMonsterMultiplier] = useState(1);
@@ -116,8 +114,6 @@ function App() {
       setSelectedSpell = {setSelectedSpell}
       selectedSpell = {selectedSpell}
       player = {playerState}
-      playerState = {playerState}
-      //two player objects here are the same ^
       setPlayerState = {setPlayerState}
       actionLogDisplay = {actionLogDisplay}
       setActionLog = {setActionLog}

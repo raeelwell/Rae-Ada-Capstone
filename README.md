@@ -1,71 +1,42 @@
-# Getting Started with Create React App
+# By The Moonlight
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+By the Moonlight is a browser game, deployed [here](https://raeelwell.github.io/Rae-Ada-Capstone/).
 
-## Available Scripts
+This is my Capstone project for [Ada Developer's Academy](https://adadevelopersacademy.org/).
 
-In the project directory, you can run:
+The project was concepted and built independently using Javascript and React framework, sourced from the [Create React App](https://create-react-app.dev/) file.
 
-### `npm start`
+## Gameplay
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+As a novice mage who dreams of being a master wizard, the player starts with nothing. In order to facilitate their dream, they sneak off into the woods at night where they kill monsters for gold.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The mage then uses this gold to purchase spells from the Market, so that they can defeat more powerful monsters and purchase more powerful spells.
 
-### `npm test`
+Upon buying the most expensive spell in the game, Essence of Victory, the player wins and their day count is displayed to them. The goal of this game is to have the lowest total day count possible.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Features
 
-### `npm run build`
+By The Moonlight features a customizable character with 48 portraits sourced from [Artbreeder](https://www.artbreeder.com/).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The turn-based combat system has a series of checks which calculate player damage, status effects, and monster damage in sequence. Each turn is summarized by a combat log, with outcomes reflected in both player and monster stat bars.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Monsters are randomly generated with a scaling formula based off of the total cost of spells in the player inventory and the total number of days in the game. This allows the difficulty of the game to scale incrementally with player progress until a player is either victorious... or killed by a monster.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The game also has 10 available spells to use in combat, each which feature unique functionality, such as:
+* damage over a series of turns
+* invulnerability (with a catch!)
+* doubling your gold gains 
+* self healing
+Experiment with different combinations of spells to see what works best!
 
-### `npm run eject`
+## About This Project
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+By The Moonlight was my first large-scale solo coding project. When I began this three-week project, I challenged myself to learn how to use React and code in Javascript, and I think I have accomplished that goal. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+While I'm sure that my self-teaching has left me with many areas that I can improve on, I am proud to have delivered a finished, working product by the deadline.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+If you have any questions or comments about By The Moonlight, I would love to hear them - you can contact me [@Raelet](https://twitter.com/Raelet) on twitter or email me at rae.elwell@gmail.com.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Changelog
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Rae-Ada-Capstone
+2.15.22: Publish date

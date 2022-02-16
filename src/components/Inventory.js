@@ -1,7 +1,6 @@
 import './Inventory.css'
 import React from 'react';
 import Spell from './Spell';
-import SpellDisplay from './SpellDisplay';
 
 const Inventory = (props) => {
     const displayAllSpells = props.allSpells.map((spell) => {
@@ -29,7 +28,6 @@ const Inventory = (props) => {
     size="5" 
     onClick={(e) => {
         props.setSelectedSpell(lookUpSpell(e.target.value));
-        console.log(lookUpSpell(e.target.value));
     }} >{displayAllSpells}</select>
     </React.Fragment>
     )

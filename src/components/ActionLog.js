@@ -1,6 +1,5 @@
 import React from 'react';
 import './ActionLog.css'
-import Monster from './Monster';
 
 const ActionLog = (props) => {
 
@@ -53,15 +52,6 @@ const ActionLog = (props) => {
             {castReturnStatement()}
             {monsterReturnStatement()}
         </div>
-
-        // <div className="action">
-        //     You cast {props.selectedSpell.name}! It does {props.selectedSpell.damage} damage.<br /><br />
-        //     <center><b>Monster HP is now {props.currentMonster.hp}.<br /></b></center><br />
-        //     { props.currentMonster.hp > 0? <div className="monsterAttack">The monster strikes back at you, doing {props.currentMonster.damage} damage!
-        //     <br /><br /><center><b>Your HP is now {props.player.hp}.</b></center></div> : <div></div>}<br /><br />
-            
-        //     {monsterKilled()}
-        //     </div>
     )
 }
 
